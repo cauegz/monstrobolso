@@ -1,6 +1,6 @@
 <?php
-class Router {
-    private $routes = [];
+class Roteador {
+    private $rotas = [];
     /**
      * Adiciona uma rota no parametro do roteador, associando a rota ao modelo padrão - controller@metodo
      * 
@@ -8,7 +8,7 @@ class Router {
      * @param String $handler: qual método de qual classe será executad, modelo: controlador@metodo
      */
     public function add($url, $handler){
-         $this->routes[$url] = [$handler];
+         $this->rotas[$url] = [$handler];
     }
 
     /**
@@ -17,15 +17,15 @@ class Router {
      * 
      * @param String $url: endpoint que vai ser executado 
      */
-    public function execute($url){
-        $routes = $this->routes;
-        if(!array_key_exists($url, $this->routes)){
+    public function executar($url){
+        $rotas = $this->rotas;
+        if(!array_key_exists($url, $this->rotas)){
             die("404"); //fazer passar para uma pagina 404
         }
-        foreach($routes as $urlClass => $handler){
+        foreach($rotas as $urlClass => $handler){
             if($urlClass == $url){
                 $handler = explode("@", $handler[0]);
-                $class = $handler[0] . "Controller";
+                $class = "Controlador" . $handler[0];
                 $method = $handler[1];
                 if(class_exists($class)){
                     $obj = new $class();

@@ -1,6 +1,6 @@
 <?php
 
-class GeneralController{
+class ControladorGeral{
     public function teste(){
         echo "controlador funcionando";
     }
