@@ -1,21 +1,16 @@
 <?php
 class Conexao{
-    public static function getPDO(){
-        $host = "db";
-        $porta = "5432";
-        $banco = "monstrobolso";
-        $usuario = "postgres";
-        $senha = "postgres";
-        try {
-            $dsn = "pgsql:host={$host};port={$porta};dbname={$banco}";
+    /**@var PDO $conexao */
+    private static $conexao;
 
-            $conexao = new PDO($dsn, $usuario, $senha);
-            $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            //fazer isso retornar json depois, deixei isso pra debug
-            echo $e;
-            die();
+    public static function getPDO()
+    {
+        if (self::$conexao === null) {
+            $dsn = "pgsql:host=db;port=5432;dbname=monstrobolso";
+            self::$conexao = new PDO($dsn, "postgres", "postgres");
+            self::$conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
-        return $conexao;
+
+        return self::$conexao;
     }
 }
