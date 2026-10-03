@@ -1,0 +1,94 @@
+
+CREATE TABLE efeito
+(
+  id_efeito INT          NOT NULL AUTO_INCREMENT,
+  nome      VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id_efeito)
+);
+
+ALTER TABLE efeito
+  ADD CONSTRAINT UQ_efeito_nome UNIQUE (nome);
+
+CREATE TABLE inventario
+(
+  id_inventario INT NOT NULL AUTO_INCREMENT,
+  id_npc        INT NOT NULL,
+  id_item       INT NOT NULL,
+  id_treinador  INT NOT NULL,
+  PRIMARY KEY (id_inventario)
+);
+
+CREATE TABLE npc
+(
+  id_npc      INT          NOT NULL AUTO_INCREMENT,
+  nome        VARCHAR(100) NOT NULL,
+  id_tipo_npc INT          NOT NULL,
+  PRIMARY KEY (id_npc)
+);
+
+CREATE TABLE pokemon
+(
+  id_pokemon   INT NOT NULL AUTO_INCREMENT,
+  id_efeito    INT NOT NULL,
+  id_pokemon   INT NOT NULL,
+  hp           INT NOT NULL,
+  id_treinador INT NOT NULL,
+  PRIMARY KEY (id_pokemon)
+);
+
+CREATE TABLE tipo_npc
+(
+  id_tipo_npc INT          NOT NULL AUTO_INCREMENT,
+  nome        VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id_tipo_npc)
+);
+
+CREATE TABLE treinador
+(
+  id_treinador INT NOT NULL AUTO_INCREMENT,
+  id_npc       INT NOT NULL,
+  id_usuario   INT NOT NULL,
+  PRIMARY KEY (id_treinador)
+);
+
+CREATE TABLE usuario
+(
+  id_usuario INT          NOT NULL AUTO_INCREMENT,
+  login      VARCHAR(100) NOT NULL,
+  senha      VARCHAR(255) NOT NULL,
+  nome       VARCHAR(100) NULL    ,
+  PRIMARY KEY (id_usuario)
+);
+
+ALTER TABLE usuario
+  ADD CONSTRAINT UQ_usuario_login UNIQUE (login);
+
+ALTER TABLE npc
+  ADD CONSTRAINT FK_tipo_npc_TO_npc
+    FOREIGN KEY (id_tipo_npc)
+    REFERENCES tipo_npc (id_tipo_npc);
+
+ALTER TABLE pokemon
+  ADD CONSTRAINT FK_efeito_TO_pokemon
+    FOREIGN KEY (id_efeito)
+    REFERENCES efeito (id_efeito);
+
+ALTER TABLE treinador
+  ADD CONSTRAINT FK_npc_TO_treinador
+    FOREIGN KEY (id_npc)
+    REFERENCES npc (id_npc);
+
+ALTER TABLE treinador
+  ADD CONSTRAINT FK_usuario_TO_treinador
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuario (id_usuario);
+
+ALTER TABLE pokemon
+  ADD CONSTRAINT FK_treinador_TO_pokemon
+    FOREIGN KEY (id_treinador)
+    REFERENCES treinador (id_treinador);
+
+ALTER TABLE inventario
+  ADD CONSTRAINT FK_treinador_TO_inventario
+    FOREIGN KEY (id_treinador)
+    REFERENCES treinador (id_treinador);
