@@ -35,4 +35,18 @@ abstract class ControladorGeral{
         echo json_encode(["ok" => false, "mensagem" => $mensagem]);
         die();
     }
+
+    /**
+     * Recebe o JSON que o front envia
+     * 
+     * @return array $dados: json convertido para array associativo
+     */
+    public function receiveJSON(){
+        $json = file_get_contents("php://input");
+        $dados = json_decode($json, true);
+        if(!$dados){
+            $this->responseError("dados inválidos", 400);
+        }
+        return $dados;
+    }
 }
