@@ -1,65 +1,130 @@
 <?php
-class Npc{
+
+class Npc
+{
     private static $pdo;
+
     private ?int $id = null;
     private string $nome;
     private int $tipoNpc;
 
-    public function __construct()
+    private static function getPDO()
     {
-        self::$pdo = Conexao::getPDO();
+        if (self::$pdo === null) {
+            self::$pdo = Conexao::getPDO();
+        }
+
+        return self::$pdo;
     }
 
-    public static function find($id){
-        $sql = "SELECT nome, id_tipo_npc as tipoNpc FROM npc WHERE id = :id";
-        $result = self::$pdo->prepare($sql);
-        $result->bindParam(":id", $id);
+    public function __get(string $nome)
+    {
+        return $this->$nome;
+    }
+
+    public function __set(string $nome, $valor)
+    {
+        $this->$nome = $valor;
+    }
+
+    public static function find($id)
+    {
+        $sql = "SELECT id, nome, id_tipo_npc
+                FROM npc
+                WHERE id = :id";
+
+        $result = self::getPDO()->prepare($sql);
+
+        $result->bindParam(":id", $id, PDO::PARAM_INT);
+
         $result->execute();
-        return $result->fetchObject(__CLASS__);
+
+        $dados = $result->fetch(PDO::FETCH_ASSOC);
+
+        if (!$dados) {
+            return null;
+        }
+
+        $npc = new Npc();
+
+        $npc->id = $dados['id'];
+        $npc->nome = $dados['nome'];
+        $npc->tipoNpc = $dados['id_tipo_npc'];
+
+        return $npc;
     }
 
-    public static function all($filter = null){
-        $sql = "SELECT nome, id_tipo_npc as tipoNpc FROM npc";
-        if($filter)
+    public static function all($filter = null)
+    {
+        $sql = "SELECT id, nome, id_tipo_npc
+                FROM npc";
+
+        if ($filter) {
             $sql .= " WHERE " . $filter;
+        }
 
-        $result = self::$pdo->prepare($sql);
-        $result->execute();
-        return $result->fetchALL(PDO::FETCH_CLASS, __CLASS__);
-    }
-
-    public static function delete(int $id){  
-        $sql = "DELETE FROM npc WHERE id = :id";
-        $result = self::$pdo->prepare($sql);             
-        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result = self::getPDO()->prepare($sql);
 
         $result->execute();
+
+        $dados = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        $npcs = [];
+
+        foreach ($dados as $dado) {
+
+            $npc = new Npc();
+
+            $npc->id = $dado['id'];
+            $npc->nome = $dado['nome'];
+            $npc->tipoNpc = $dado['id_tipo_npc'];
+
+            $npcs[] = $npc;
+        }
+
+        return $npcs;
     }
 
-    public function save(){
+    public static function delete(int $id)
+    {
+        $sql = "DELETE FROM npc
+                WHERE id = :id";
+
+        $result = self::getPDO()->prepare($sql);
+
+        $result->bindParam(":id", $id, PDO::PARAM_INT);
+
+        $result->execute();
+    }
+
+    public function save()
+    {
         if ($this->id == null) {
 
             $sql = "INSERT INTO npc (nome, id_tipo_npc)
                     VALUES (:nome, :tipoNpc)";
 
-            $result = self::$pdo->prepare($sql);
+            $result = self::getPDO()->prepare($sql);
 
             $result->bindParam(":nome", $this->nome);
-            $result->bindParam(":tipoNpc", $this->tipoNpc);
+            $result->bindParam(":tipoNpc", $this->tipoNpc, PDO::PARAM_INT);
 
             $result->execute();
 
-            $this->id = self::$pdo->lastInsertId();
+            $this->id = self::getPDO()->lastInsertId();
+
         } else {
+
             $sql = "UPDATE npc
-                    SET nome = :nome, id_tipo_npc = :tipoNpc
+                    SET nome = :nome,
+                        id_tipo_npc = :tipoNpc
                     WHERE id = :id";
 
-            $result = self::$pdo->prepare($sql);
+            $result = self::getPDO()->prepare($sql);
 
             $result->bindParam(":nome", $this->nome);
-            $result->bindParam(":tipoNpc", $this->tipoNpc);
-            $result->bindParam(":id", $this->id);
+            $result->bindParam(":tipoNpc", $this->tipoNpc, PDO::PARAM_INT);
+            $result->bindParam(":id", $this->id, PDO::PARAM_INT);
 
             $result->execute();
         }
