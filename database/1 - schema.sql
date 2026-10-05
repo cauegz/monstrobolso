@@ -1,18 +1,14 @@
 
 CREATE TABLE efeito
 (
-  id_efeito INT          NOT NULL AUTO_INCREMENT,
-  nome      VARCHAR(100) NOT NULL,
+  id_efeito INT          NOT NULL GENERATED ALWAYS AS IDENTITY,
+  nome      VARCHAR(100) NOT NULL UNIQUE,
   PRIMARY KEY (id_efeito)
 );
 
-ALTER TABLE efeito
-  ADD CONSTRAINT UQ_efeito_nome UNIQUE (nome);
-
 CREATE TABLE inventario
 (
-  id_inventario INT NOT NULL AUTO_INCREMENT,
-  id_npc        INT NOT NULL,
+  id_inventario INT NOT NULL GENERATED ALWAYS AS IDENTITY,
   id_item       INT NOT NULL,
   id_treinador  INT NOT NULL,
   PRIMARY KEY (id_inventario)
@@ -20,7 +16,7 @@ CREATE TABLE inventario
 
 CREATE TABLE npc
 (
-  id_npc      INT          NOT NULL AUTO_INCREMENT,
+  id_npc      INT          NOT NULL GENERATED ALWAYS AS IDENTITY,
   nome        VARCHAR(100) NOT NULL,
   id_tipo_npc INT          NOT NULL,
   PRIMARY KEY (id_npc)
@@ -28,9 +24,8 @@ CREATE TABLE npc
 
 CREATE TABLE pokemon
 (
-  id_pokemon   INT NOT NULL AUTO_INCREMENT,
+  id_pokemon   INT NOT NULL GENERATED ALWAYS AS IDENTITY,
   id_efeito    INT NOT NULL,
-  id_pokemon   INT NOT NULL,
   hp           INT NOT NULL,
   id_treinador INT NOT NULL,
   PRIMARY KEY (id_pokemon)
@@ -38,14 +33,14 @@ CREATE TABLE pokemon
 
 CREATE TABLE tipo_npc
 (
-  id_tipo_npc INT          NOT NULL AUTO_INCREMENT,
+  id_tipo_npc INT          NOT NULL GENERATED ALWAYS AS IDENTITY,
   nome        VARCHAR(100) NOT NULL,
   PRIMARY KEY (id_tipo_npc)
 );
 
 CREATE TABLE treinador
 (
-  id_treinador INT NOT NULL AUTO_INCREMENT,
+  id_treinador INT NOT NULL GENERATED ALWAYS AS IDENTITY,
   id_npc       INT NOT NULL,
   id_usuario   INT NOT NULL,
   PRIMARY KEY (id_treinador)
@@ -53,15 +48,12 @@ CREATE TABLE treinador
 
 CREATE TABLE usuario
 (
-  id_usuario INT          NOT NULL AUTO_INCREMENT,
-  login      VARCHAR(100) NOT NULL,
+  id_usuario INT          NOT NULL GENERATED ALWAYS AS IDENTITY,
+  login      VARCHAR(100) NOT NULL UNIQUE,
   senha      VARCHAR(255) NOT NULL,
-  nome       VARCHAR(100) NULL    ,
+  nome       VARCHAR(100),
   PRIMARY KEY (id_usuario)
 );
-
-ALTER TABLE usuario
-  ADD CONSTRAINT UQ_usuario_login UNIQUE (login);
 
 ALTER TABLE npc
   ADD CONSTRAINT FK_tipo_npc_TO_npc
