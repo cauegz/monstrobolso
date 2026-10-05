@@ -13,7 +13,7 @@ services:
     image: postgres:17
     container_name: postgres
     environment:
-      POSTGRES_DB: sistema
+      POSTGRES_DB: monstrobolso
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
