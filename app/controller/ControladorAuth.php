@@ -1,14 +1,19 @@
 <?php
 class ControladorAuth extends ControladorGeral{
     public function cadastro(){
-        // extract($this->receiveJSON());
+        extract($this->receiveJSON());
 
-        //teste do banco pode apagar
-        $pdo = Conexao::getPDO();
-        $sql = "select * from efeito";
-        $stmt = $pdo->query($sql);
-        $this->responseJSON($stmt->fetchAll(PDO::FETCH_ASSOC));
+        try{
+            $usuario = new Usuario();
+            /**@var string $login @var string $nome @var string $senha*/
+            $usuario->login = $login;
+            $usuario->nome = $nome;
+            $usuario->senha = $senha;
 
-        $npc = Npc::find(1);
+            $usuario->save();
+        }catch(Exception $e){
+            $this->responseError($e->getMessage(), 400);
+        }
+        $this->responseJSON(Usuario::find($usuario->id));
     }
 }
