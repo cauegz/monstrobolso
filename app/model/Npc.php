@@ -1,6 +1,6 @@
 <?php
 
-class Npc
+class Npc implements JsonSerializable
 {
     private static $pdo;
 
@@ -29,29 +29,17 @@ class Npc
 
     public static function find($id)
     {
-        $sql = "SELECT id, nome, id_tipo_npc
+        $sql = 'SELECT id, nome, id_tipo_npc as "tipoNpc"
                 FROM npc
-                WHERE id = :id";
+                WHERE id = :id';
 
         $result = self::getPDO()->prepare($sql);
 
-        $result->bindParam(":id", $id, PDO::PARAM_INT);
+        $result->bindParam(":id", $id);
 
         $result->execute();
 
-        $dados = $result->fetch(PDO::FETCH_ASSOC);
-
-        if (!$dados) {
-            return null;
-        }
-
-        $npc = new Npc();
-
-        $npc->id = $dados['id'];
-        $npc->nome = $dados['nome'];
-        $npc->tipoNpc = $dados['id_tipo_npc'];
-
-        return $npc;
+        return $result->fetchObject(self::class);
     }
 
     public static function all($filter = null)
@@ -92,7 +80,7 @@ class Npc
 
         $result = self::getPDO()->prepare($sql);
 
-        $result->bindParam(":id", $id, PDO::PARAM_INT);
+        $result->bindParam(":id", $id);
 
         $result->execute();
     }
@@ -107,7 +95,7 @@ class Npc
             $result = self::getPDO()->prepare($sql);
 
             $result->bindParam(":nome", $this->nome);
-            $result->bindParam(":tipoNpc", $this->tipoNpc, PDO::PARAM_INT);
+            $result->bindParam(":tipoNpc", $this->tipoNpc);
 
             $result->execute();
 
@@ -123,10 +111,19 @@ class Npc
             $result = self::getPDO()->prepare($sql);
 
             $result->bindParam(":nome", $this->nome);
-            $result->bindParam(":tipoNpc", $this->tipoNpc, PDO::PARAM_INT);
-            $result->bindParam(":id", $this->id, PDO::PARAM_INT);
+            $result->bindParam(":tipoNpc", $this->tipoNpc);
+            $result->bindParam(":id", $this->id);
 
             $result->execute();
         }
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            "id" => $this->id,
+            "nome" => $this->nome,
+            "tipoNpc" => $this->tipoNpc
+        ];
     }
 }
