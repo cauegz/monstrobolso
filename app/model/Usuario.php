@@ -1,9 +1,10 @@
 <?php
-class Usuario{
+class Usuario implements JsonSerializable{
     private static $pdo;
-    private $login;
-    private $senha;
-    private $nome;
+    private ?int $id = null;
+    private string $login;
+    private string $senha;
+    private string $nome;
 
     private static function getPDO()
     {
@@ -21,6 +22,12 @@ class Usuario{
 
     public function __set(string $nome, $valor)
     {
+        $metodo = 'set' . ucfirst($valor);
+
+        if (method_exists($this, $metodo)) {
+            $this->$metodo($valor);
+            return;
+        }
         $this->$nome = $valor;
     }
 
@@ -36,7 +43,7 @@ class Usuario{
 
         $result->execute();
 
-        return $result->fetch(PDO::FETCH_CLASS, self::class);
+        return $result->fetchObject(self::class);
     }
 
     public static function all($filter = null)
@@ -112,17 +119,17 @@ class Usuario{
 
     private static function temMaiuscula($senha){
         if(preg_match("[A-Z]", $senha)){
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     private static function temMinuscula($senha)
     {
         if (preg_match("[a-z]", $senha)) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     public function jsonSerialize(): mixed
