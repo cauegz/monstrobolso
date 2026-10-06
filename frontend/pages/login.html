@@ -9,18 +9,19 @@
 <body>
     <div id="canvas">
     <form>
+        <h2>Login</h2>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
-        <label for="password">Password:</label>
+        <label for="password">Senha:</label>
         <input type="password" id="password" name="password" required>
-        <div id="btns"> 
-            <button type="submit" onclick="enviar(event)">Login</button>
-            <button type="submit" onclick="enviar(event)">Cadastrar</button>
+        <div id="btns">
+            <button type="submit" onclick="enviar(event)">Entrar</button>
+            <a href="cadastro.html">Cadastrar</a>
         </div>
     </form>
     </div>
     <script>
-       function enviar(event) {
+       async function enviar(event) {
             event.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
@@ -29,23 +30,23 @@
                 "senha": password
             };
             jsonData = JSON.stringify(jsonData);
-            fetch('http://localhost:8080/api/cadastro', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: jsonData
-            })
-            .then(response => response.json())
-            .then(data => {
+            try {
+                const response = await fetch('http://localhost:8080/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                });
+                const data = await response.json();
                 if (data.success) {
                    console.log('Success:', data.message);
                 } else {
                     alert(data.message);
                 }
-            }).catch(error => {
+            } catch (error) {
                 console.error('Error:', error);
-            });
+            }
         }
     </script>
 </body>

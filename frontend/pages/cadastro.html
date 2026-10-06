@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro/Login</title>
+    <link rel="stylesheet" href="../css/form-style.css">
+</head>
+<body>
+    <div id="canvas">
+    <form>
+        <h2>Cadastro</h2>
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required>
+            <div id="btns">
+            <button type="submit" onclick="enviar(event)">Cadastrar</button>
+            <a href="login.html">Já tem uma conta? Faça login</a>
+            </div>
+    </form>
+    </div>
+    <script>
+        async function enviar(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const name = document.getElementById('name').value;
+            jsonData = {
+                "login": username,
+                "senha": password,
+                "nome": name
+            };
+            jsonData = JSON.stringify(jsonData);
+            
+            try {
+                const response = await fetch('http://localhost:8080/api/cadastro', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                });
+                console.log(response);
+                const data = await response.json();
+                if (data.ok) {
+                    console.log('Success:', data.message);
+                } else {
+                    alert(data.message);
+                    console.log(data);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }    
+        }
+    </script>
+</body>
+</html>

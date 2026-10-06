@@ -5,12 +5,10 @@
     padding: 0;
 }
 
-body{
-    background-image: url('../images/bg-pokebola.jpg');
-    background-size: cover;
+body, input, button, a{
     font-family: 'Pixelify Sans', sans-serif;
-    color: white;
     font-size: 1.5rem;
+    color: #4a4530;
 }
 
 #canvas{
@@ -18,45 +16,66 @@ body{
     top: 50%;
     left:50%;
     transform: translate(-50%,-50%);
-    width: 500px;
-    height: 500px;
+    width: 1020px;
+    height: 586px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000000bc;
+    background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.525)),
+    url('../images/background/bg-pokebola.jpg');
+    background-size: cover;
     border-radius: 10px;
 }
 form{
     display: flex;
     flex-direction: column;
-    width:70%;
-    gap: 20px;
-  
+    background-color: #f0e6a4;
+    width: 45%;
+    height: 100%;
+    gap: 10px;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 button{
-    all: unset;
+    background-color: #f52323;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 25px;
+    cursor: pointer;
+    transition: 0.2s;
 }
+
+button:hover {
+    background-color: #d91414;
+    transform: scale(1.03);
+}
+
 #btns{
   display: flex;
-  gap: 10%;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  
 }
-
-button {
-    background-color: red;
-    padding: 10px 20px;
-    border-radius: 5px;
-    color: white;
+#btns > *{
+  margin: 10px;
 }
-
 input{
-    all: unset;
-    background-color: #000000bc;
-    border: 2px solid #ffffff;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
+    width: 100%;
+    height: 45px;
+    box-sizing: border-box;
+    background-color: #fffbea;
+    border: 2px solid #d6c95e;
+    border-radius: 7px;
+    padding: 12px;
+    font-size: 1.2rem;
+    outline: none;
+}
+input:focus {
+    border-color: #e53935;
+}
+a{
+    text-decoration: none;
+    font-size: 1.2rem;
 }
