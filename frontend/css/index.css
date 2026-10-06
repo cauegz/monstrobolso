@@ -1,0 +1,572 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: 100%;
+  min-height: 400px;
+  min-width: 960px;
+  background: radial-gradient(
+    circle at center,
+    #f9c5d1 0 10%,
+    #c2c1f6 90% 100%
+  );
+  transform: scale(2);
+}
+
+#container {
+  width: 960px;
+  white-space: nowrap;
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.2));
+}
+
+.controllercontainer {
+  display: inline-block;
+  position: relative;
+  width: 120px;
+  height: 380px;
+  margin: 10px;
+}
+
+.controllercontainer .shoulder {
+  position: absolute;
+  top: -4px;
+  width: 100px;
+  height: 100px;
+  border-radius: 80px 4px 0 0;
+  background: #414548;
+  z-index: -1;
+  box-shadow: -4px -4px 4px -1px rgba(0, 0, 0, 0.1) inset,
+    0 2px 4px -1px rgba(255, 255, 255, 0.2) inset;
+  clip-path: polygon(100% 100%, 0 40%, 0 0, 100% 0);
+}
+
+.controllercontainer .shoulder.left {
+  left: -4px;
+}
+
+.controllercontainer .shoulder.right {
+  right: -4px;
+  transform: scaleX(-1);
+}
+
+.controllercontainer .controller {
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 380px;
+}
+
+.controllercontainer .controller.left {
+  left: 0;
+  background: #00c3e3;
+  border-radius: 80px 0 0 80px;
+  box-shadow: 10px -10px 10px -3px rgba(0, 0, 0, 0.1) inset,
+    4px 10px 10px -3px rgba(255, 255, 255, 0.3) inset;
+}
+
+.controllercontainer .controller.right {
+  right: 0;
+  background: #ff4554;
+  border-radius: 0 80px 80px 0;
+  box-shadow: -10px -10px 10px -3px rgba(0, 0, 0, 0.1) inset,
+    -4px 10px 10px -3px rgba(255, 255, 255, 0.3) inset;
+}
+
+/* ---------- Connector ---------- */
+
+.controllercontainer .controller .connector {
+  position: absolute;
+  top: 20px;
+}
+
+.controllercontainer .controller .connector.left {
+  right: 0;
+}
+
+.controllercontainer .controller .connector.right {
+  left: 0;
+  transform: scaleX(-1);
+}
+
+.controllercontainer .controller .connector .base {
+  position: absolute;
+  top: 0;
+  width: 6px;
+  height: 310px;
+  background: #1a1c1d;
+  left: 0;
+  box-shadow: 0 10px 4px -4px rgba(255, 255, 255, 0.2) inset;
+}
+
+.controllercontainer .controller .connector .lip {
+  position: absolute;
+  width: 4px;
+  background: #414548;
+}
+
+.controllercontainer .controller .connector .lip.full {
+  top: 0;
+  left: 6px;
+  height: 320px;
+  border-bottom-left-radius: 4px;
+}
+
+.controllercontainer .controller .connector .lip.upper {
+  top: 0;
+  left: 10px;
+  height: 26px;
+}
+
+.controllercontainer .controller .connector .lip.middle {
+  top: 98px;
+  left: 10px;
+  height: 124px;
+}
+
+.controllercontainer .controller .connector .lip.lower {
+  bottom: -320px;
+  left: 10px;
+  height: 26px;
+}
+
+.controllercontainer .controller .connector .lip.full,
+.controllercontainer .controller .connector .lip.upper {
+  box-shadow: 0 10px 4px -4px rgba(255, 255, 255, 0.2) inset;
+}
+
+.controllercontainer .controller .connector .lip.upper::after,
+.controllercontainer .controller .connector .lip.middle::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 4px;
+  height: 14px;
+  background: linear-gradient(
+    to bottom right,
+    #414548 0 50%,
+    transparent 55% 100%
+  );
+}
+
+.controllercontainer .controller .connector .lip.middle::before,
+.controllercontainer .controller .connector .lip.lower::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 4px;
+  height: 14px;
+  background: linear-gradient(
+    to top right,
+    #414548 0 50%,
+    transparent 55% 100%
+  );
+}
+
+.controllercontainer .controller .connector .button {
+  position: absolute;
+  left: 10px;
+  width: 4px;
+  height: 40px;
+  border-radius: 0 4px 4px 0;
+  box-shadow: -2px -2px 2px rgba(0, 0, 0, 0.2) inset,
+    -2px 2px 2px rgba(255, 255, 255, 0.3) inset;
+}
+
+.controllercontainer .controller .connector .button.left {
+  background: #00c3e3;
+}
+
+.controllercontainer .controller .connector .button.right {
+  background: #ff4554;
+}
+
+.controllercontainer .controller .connector .button.top {
+  top: 42px;
+}
+
+.controllercontainer .controller .connector .button.bottom {
+  bottom: -278px;
+}
+
+/* ---------- Joystick ---------- */
+
+.controllercontainer .controller .joystick {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: #414548;
+  border-radius: 50%;
+  box-shadow: 0 6px 9px rgba(0, 0, 0, 0.6),
+    0 -12px 18px rgba(0, 0, 0, 0.6) inset,
+    0 12px 18px rgba(255, 255, 255, 0.2) inset;
+}
+
+.controllercontainer .controller .joystick.left {
+  top: 76px;
+  left: 30px;
+}
+
+.controllercontainer .controller .joystick.right {
+  bottom: 142px;
+  right: 30px;
+}
+
+.controllercontainer .controller .joystick .rim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #414548;
+  box-shadow: 0 -8.8px 13.2px rgba(0, 0, 0, 0.2) inset,
+    0 8.8px 13.2px rgba(255, 255, 255, 0.4) inset,
+    0 0 2.4px 2px rgba(0, 0, 0, 1) inset;
+}
+
+.controllercontainer .controller .joystick .slope {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #292b2d 0, #595f63 100%);
+}
+
+.controllercontainer .controller .joystick .gaps,
+.controllercontainer .controller .joystick .inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  background: #414548;
+  border-radius: 50%;
+  box-shadow: 0 -12px 18px rgba(0, 0, 0, 0.6) inset,
+    0 12px 18px rgba(255, 255, 255, 0.2) inset;
+}
+
+.controllercontainer .controller .joystick .gaps {
+  clip-path: polygon(
+    31px 0,
+    31px 29px,
+    100% 29px,
+    100% 31px,
+    31px 31px,
+    31px 100%,
+    29px 100%,
+    29px 31px,
+    0 31px,
+    0 29px,
+    29px 29px,
+    29px 0
+  );
+}
+
+.controllercontainer .controller .joystick .inner {
+  clip-path: circle(22px at 30px 30px);
+}
+
+/* ---------- System buttons (+ / -) ---------- */
+
+.controllercontainer .controller .systembutton {
+  position: absolute;
+  top: 36px;
+  width: 24px;
+  height: 24px;
+}
+
+.controllercontainer .controller .systembutton.left {
+  right: 14px;
+}
+
+.controllercontainer .controller .systembutton.right {
+  left: 14px;
+}
+
+.controllercontainer .controller .systembutton.inner {
+  position: absolute;
+  background: #414548;
+  border-radius: 2px;
+}
+
+.controllercontainer .controller .systembutton.inner.horizontal {
+  top: calc(50% - 4px);
+  left: 0;
+  width: 24px;
+  height: 8px;
+}
+
+.controllercontainer .controller .systembutton.inner.horizontal:not(.mask) {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.controllercontainer .controller .systembutton.inner.vertical {
+  top: 0;
+  left: calc(50% - 4px);
+  height: 24px;
+  width: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* ---------- Radial buttons ---------- */
+
+.controllercontainer .controller .radial {
+  position: absolute;
+  width: 82px;
+  height: 82px;
+}
+
+.controllercontainer .controller .radial.left {
+  bottom: 130px;
+  right: 19px;
+}
+
+.controllercontainer .controller .radial.right {
+  top: 64px;
+  left: 19px;
+}
+
+.controllercontainer .controller .radial .radialbutton {
+  position: absolute;
+  display: flex;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #414548;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6),
+    0 -2px 4px rgba(0, 0, 0, 0.2) inset,
+    0 2px 4px rgba(255, 255, 255, 0.2) inset;
+  align-items: center;
+  justify-content: center;
+}
+
+.controllercontainer .controller .radial .radialbutton.top {
+  top: 0;
+  left: 28px;
+}
+
+.controllercontainer .controller .radial .radialbutton.left {
+  top: 28px;
+  left: 0;
+}
+
+.controllercontainer .controller .radial .radialbutton.bottom {
+  bottom: 0;
+  left: 28px;
+}
+
+.controllercontainer .controller .radial .radialbutton.right {
+  top: 28px;
+  right: 0;
+}
+
+.controllercontainer .controller .radial .radialbutton .label.text {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 15.6px;
+  color: #bbb;
+}
+
+.controllercontainer .controller .radial .radialbutton .label.arrow {
+  width: 0;
+  height: 0;
+  border-left: 6.76px solid transparent;
+  border-right: 6.76px solid transparent;
+  border-bottom: 7.8px solid #1a1c1d;
+}
+
+.controllercontainer .controller .radial .radialbutton .label.arrow.top {
+  transform: rotate(0deg);
+  margin-top: -2px;
+}
+
+.controllercontainer .controller .radial .radialbutton .label.arrow.right {
+  transform: rotate(90deg);
+  margin-right: -2px;
+}
+
+.controllercontainer .controller .radial .radialbutton .label.arrow.bottom {
+  transform: rotate(180deg);
+  margin-bottom: -2px;
+}
+
+.controllercontainer .controller .radial .radialbutton .label.arrow.left {
+  transform: rotate(270deg);
+  margin-left: -2px;
+}
+
+/* ---------- Record button ---------- */
+
+.controllercontainer .controller .record {
+  position: absolute;
+  bottom: 80px;
+  right: 30px;
+  width: 22px;
+  height: 22px;
+  background: #414548;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.6),
+    0 -2px 2px rgba(0, 0, 0, 0.2) inset,
+    0 2px 2px rgba(255, 255, 255, 0.1) inset;
+}
+
+.controllercontainer .controller .record .inner {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #1a1c1d;
+}
+
+/* ---------- Home button ---------- */
+
+.controllercontainer .controller .home {
+  position: absolute;
+  bottom: 76px;
+  left: 30px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #aaa;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+}
+
+.controllercontainer .controller .home .inner {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #414548;
+}
+
+.controllercontainer .controller .home .inner .icon {
+  position: absolute;
+  top: 9.68px;
+  left: 5.5px;
+  width: 11px;
+  height: 7.7px;
+  background: #1a1c1d;
+}
+
+.controllercontainer .controller .home .inner .icon::before {
+  content: "";
+  position: absolute;
+  bottom: 7.7px;
+  left: 5.5px;
+  width: 0;
+  height: 0;
+  border-left: 8.36px solid transparent;
+  border-right: 8.36px solid transparent;
+  border-bottom: 7.92px solid #1a1c1d;
+  transform: translate(-50%, 0);
+}
+
+.controllercontainer .controller .home .inner .icon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 4px;
+  width: 3px;
+  height: 3.7px;
+  background: #414548;
+}
+
+/* ---------- Main (tela) ---------- */
+
+.maincontainer {
+  display: inline-block;
+  position: relative;
+  width: 640px;
+  height: 380px;
+  margin: 10px;
+  z-index: 1;
+}
+
+.maincontainer .indent {
+  position: absolute;
+  top: 6px;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(
+    circle at top left,
+    transparent 0 65%,
+    #454b4e 70% 100%
+  );
+}
+
+.maincontainer .indent.left {
+  left: 0;
+}
+
+.maincontainer .indent.right {
+  transform: scaleX(-1);
+  right: 0;
+}
+
+.maincontainer .main {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 640px;
+  height: 380px;
+  background: #323638;
+  box-shadow: 0 -10px 10px -3px rgba(0, 0, 0, 0.2) inset,
+    0 10px 10px -3px rgba(255, 255, 255, 0.2) inset;
+  clip-path: polygon(
+    8px 0,
+    632px 0,
+    632px 14px,
+    100% 14px,
+    100% 100%,
+    0 100%,
+    0 14px,
+    8px 14px
+  );
+}
+
+.maincontainer .main .bevel {
+  position: absolute;
+  box-sizing: border-box;
+  left: 18px;
+  top: 10px;
+  width: 604px;
+  height: 360px;
+  border-radius: 12px;
+  background-color: black;
+  border-top: 1px solid #1a1c1d;
+  border-left: 1px solid #3c4043;
+  border-right: 1px solid #3c4043;
+  border-bottom: 1px solid #454b4e;
+}
+
+.maincontainer .main .bevel .screen {
+  position: absolute;
+  box-sizing: border-box;
+  left: 46px;
+  top: 32px;
+  width: 512px;
+  height: 296px;
+  background-color: #101020;
+  border-top: 1px solid #101020;
+  border-left: 1px solid #1f2122;
+  border-right: 1px solid #1f2122;
+  border-bottom: 2px solid #1f2122;
+}

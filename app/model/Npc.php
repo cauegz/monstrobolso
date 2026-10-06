@@ -1,10 +1,12 @@
 <?php
-class Usuario implements JsonSerializable{
+
+class Npc implements JsonSerializable
+{
     private static $pdo;
+
     private ?int $id = null;
-    private string $login;
-    private string $senha;
     private string $nome;
+    private int $tipoNpc;
 
     private static function getPDO()
     {
@@ -22,20 +24,14 @@ class Usuario implements JsonSerializable{
 
     public function __set(string $nome, $valor)
     {
-        $metodo = 'set' . ucfirst($valor);
-
-        if (method_exists($this, $metodo)) {
-            $this->$metodo($valor);
-            return;
-        }
         $this->$nome = $valor;
     }
 
     public static function find($id)
     {
-        $sql = "SELECT *
-                FROM usuario
-                WHERE id = :id";
+        $sql = 'SELECT id, nome, id_tipo_npc as "tipoNpc"
+                FROM npc
+                WHERE id = :id';
 
         $result = self::getPDO()->prepare($sql);
 
@@ -48,8 +44,8 @@ class Usuario implements JsonSerializable{
 
     public static function all($filter = null)
     {
-        $sql = "SELECT *
-                FROM usuario";
+        $sql = "SELECT id, nome, id_tipo_npc
+                FROM npc";
 
         if ($filter) {
             $sql .= " WHERE " . $filter;
@@ -59,12 +55,27 @@ class Usuario implements JsonSerializable{
 
         $result->execute();
 
-        return $result->fetchAll(PDO::FETCH_CLASS, self::class);
+        $dados = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        $npcs = [];
+
+        foreach ($dados as $dado) {
+
+            $npc = new Npc();
+
+            $npc->id = $dado['id'];
+            $npc->nome = $dado['nome'];
+            $npc->tipoNpc = $dado['id_tipo_npc'];
+
+            $npcs[] = $npc;
+        }
+
+        return $npcs;
     }
 
     public static function delete(int $id)
     {
-        $sql = "DELETE FROM usuario
+        $sql = "DELETE FROM npc
                 WHERE id = :id";
 
         $result = self::getPDO()->prepare($sql);
@@ -78,67 +89,41 @@ class Usuario implements JsonSerializable{
     {
         if ($this->id == null) {
 
-            $sql = "INSERT INTO usuario (login, senha, nome)
-                    VALUES (:login, :senha, :nome)";
+            $sql = "INSERT INTO npc (nome, id_tipo_npc)
+                    VALUES (:nome, :tipoNpc)";
 
             $result = self::getPDO()->prepare($sql);
 
-            $result->bindParam(":login", $this->login);
-            $result->bindParam(":senha", $this->senha);
             $result->bindParam(":nome", $this->nome);
+            $result->bindParam(":tipoNpc", $this->tipoNpc);
 
             $result->execute();
 
             $this->id = self::getPDO()->lastInsertId();
+
         } else {
 
-            $sql = "UPDATE usuario
-                    SET login = :login,
-                        senha = :senha,
-                        nome = :nome
+            $sql = "UPDATE npc
+                    SET nome = :nome,
+                        id_tipo_npc = :tipoNpc
                     WHERE id = :id";
 
             $result = self::getPDO()->prepare($sql);
 
-            $result->bindParam(":login", $this->login);
-            $result->bindParam(":senha", $this->senha);
             $result->bindParam(":nome", $this->nome);
+            $result->bindParam(":tipoNpc", $this->tipoNpc);
             $result->bindParam(":id", $this->id);
 
             $result->execute();
         }
     }
 
-    public function setSenha($senha){
-        if(strlen($senha) < 8 || !self::temMaiuscula($senha) || !self::temMinuscula($senha)){
-            //fazer exceção personalizada aqui
-            throw new Exception("Senha inválida");
-        }
-        $this->senha = $senha;
-    }
-
-    private static function temMaiuscula($senha){
-        if(preg_match("[A-Z]", $senha)){
-            return false;
-        }
-        return true;
-    }
-
-    private static function temMinuscula($senha)
-    {
-        if (preg_match("[a-z]", $senha)) {
-            return false;
-        }
-        return true;
-    }
-
     public function jsonSerialize(): mixed
     {
         return [
             "id" => $this->id,
-            "login" => $this->login,
-            "senha" => $this->senha,
-            "nome" => $this->nome
+            "nome" => $this->nome,
+            "tipoNpc" => $this->tipoNpc
         ];
     }
 }
