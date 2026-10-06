@@ -44,8 +44,8 @@ class Npc implements JsonSerializable
 
     public static function all($filter = null)
     {
-        $sql = "SELECT id, nome, id_tipo_npc
-                FROM npc";
+        $sql = 'SELECT id, nome, id_tipo_npc as "tipoNpc"
+                FROM npc';
 
         if ($filter) {
             $sql .= " WHERE " . $filter;
@@ -55,22 +55,7 @@ class Npc implements JsonSerializable
 
         $result->execute();
 
-        $dados = $result->fetchAll(PDO::FETCH_ASSOC);
-
-        $npcs = [];
-
-        foreach ($dados as $dado) {
-
-            $npc = new Npc();
-
-            $npc->id = $dado['id'];
-            $npc->nome = $dado['nome'];
-            $npc->tipoNpc = $dado['id_tipo_npc'];
-
-            $npcs[] = $npc;
-        }
-
-        return $npcs;
+        return $result->fetchAll(PDO::FETCH_CLASS, self::class);
     }
 
     public static function delete(int $id)

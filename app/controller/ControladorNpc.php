@@ -2,22 +2,17 @@
 
 class ControladorNpc extends ControladorGeral{
     public function createNpc(){
-        extract($this->receiveJSON());
+        // extract($this->receiveJSON());
 
 
-        //funcionou essa porra
-        // $npc = new Npc();
-        // /**@var string $nome @var int $tipoNpc */
-        // $npc->nome = $nome;
-        // $npc->tipoNpc = $tipoNpc;
+        $npc = new Npc();
+        /**@var string $nome @var int $tipoNpc */
+        $npc->nome = "nome";
+        $npc->tipoNpc = 1;
 
-        // $npc->save();
-        // $id = $npc->id;
-
-        $npc2 = Npc::find(1);
-        $this->responseJSON([
-            "nome" => $npc2->nome,
-            "tipoNpc" => $npc2->tipoNpc
-        ]);
+        $npc->save();
+        $id = $npc->id;
+        // var_dump($npc);
+        $this->responseJSON(Npc::all());
     }
 }
