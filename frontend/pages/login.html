@@ -9,14 +9,14 @@
 <body>
     <div id="canvas">
     <form>
-        <h2>Login</h2>
+        <h2 id="login-title">Login</h2>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
         <label for="password">Senha:</label>
         <input type="password" id="password" name="password" required>
         <div id="btns">
             <button type="submit" onclick="enviar(event)">Entrar</button>
-            <a href="cadastro.html">Cadastrar</a>
+            <span>Não tem uma conta?<a href="cadastro.html"> Cadastre-se</a></span>
         </div>
     </form>
     </div>
@@ -40,9 +40,9 @@
                 });
                 const data = await response.json();
                 if (data.success) {
-                   console.log('Success:', data.message);
+                   console.log('Success:', data);
                 } else {
-                    alert(data.message);
+                    alert(data.mensagem);
                 }
             } catch (error) {
                 console.error('Error:', error);

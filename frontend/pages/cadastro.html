@@ -18,7 +18,7 @@
         <input type="password" id="password" name="password" required>
             <div id="btns">
             <button type="submit" onclick="enviar(event)">Cadastrar</button>
-            <a href="login.html">Já tem uma conta? Faça login</a>
+            <span>Já tem uma conta?<a href="login.html"> Faça login</a></span>
             </div>
     </form>
     </div>
@@ -46,9 +46,9 @@
                 console.log(response);
                 const data = await response.json();
                 if (data.ok) {
-                    console.log('Success:', data.message);
+                    console.log('Success:', data);
                 } else {
-                    alert(data.message);
+                    alert(data.mensagem);
                     console.log(data);
                 }
             } catch (error) {
