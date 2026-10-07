@@ -31,8 +31,15 @@ export class Player {
         else this.speedY = 0;
         this.y += this.speedY;
         //impede que o jogador passe da tela do canvas
-        if(this.x<0) this.x=0;
-        if(this.x > this.game.width - this.width) this.x = this.game.width - this.width;
+        if(this.x<=0){
+            this.game.background.changeBackground(-1);
+            this.x = this.game.width - this.width;
+        }
+        if(this.x >= this.game.width - this.width) {
+            this.x = this.game.width - this.width;
+            this.game.background.changeBackground(1);
+            this.x = 0;
+        }
         if(this.y<0) this.y=0;
         if(this.y > this.game.height - this.height) this.y = this.game.height - this.height;
     }
