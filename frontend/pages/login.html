@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro/Login</title>
+    <link rel="stylesheet" href="../css/form-style.css">
+</head>
+<body>
+    <div id="canvas">
+    <form>
+        <h2 id="login-title">Login</h2>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required>
+        <div id="btns">
+            <button type="submit" onclick="enviar(event)">Entrar</button>
+            <span>Não tem uma conta?<a href="cadastro.html"> Cadastre-se</a></span>
+        </div>
+    </form>
+    </div>
+    <script>
+       async function enviar(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            jsonData = {
+                "nome": username,
+                "senha": password
+            };
+            jsonData = JSON.stringify(jsonData);
+            try {
+                const response = await fetch('http://localhost:8080/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                });
+                const data = await response.json();
+                if (data.success) {
+                   console.log('Success:', data);
+                } else {
+                    alert(data.mensagem);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>

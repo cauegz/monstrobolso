@@ -22,7 +22,8 @@ class Usuario implements JsonSerializable{
 
     public function __set(string $nome, $valor)
     {
-        $metodo = 'set' . ucfirst($valor);
+        //antes de executar o set padrão verifica se tem algum explícito na classe
+        $metodo = 'set' . ucfirst($nome);
 
         if (method_exists($this, $metodo)) {
             $this->$metodo($valor);
@@ -109,27 +110,19 @@ class Usuario implements JsonSerializable{
         }
     }
 
+    /**
+     * Verifica se a senha do usuário é válida e depois da um hash
+     * 
+     * @param string $senha: senha do usuário sem hash
+     * 
+     * @return void; 
+     */
     public function setSenha($senha){
-        if(strlen($senha) < 8 || !self::temMaiuscula($senha) || !self::temMinuscula($senha)){
+        if(strlen($senha) < 8 || !preg_match('/[A-Z]/', $senha) || !preg_match('/[a-z]/', $senha)){
             //fazer exceção personalizada aqui
             throw new Exception("Senha inválida");
         }
-        $this->senha = $senha;
-    }
-
-    private static function temMaiuscula($senha){
-        if(preg_match("[A-Z]", $senha)){
-            return false;
-        }
-        return true;
-    }
-
-    private static function temMinuscula($senha)
-    {
-        if (preg_match("[a-z]", $senha)) {
-            return false;
-        }
-        return true;
+        $this->senha = password_hash($senha, PASSWORD_DEFAULT);
     }
 
     public function jsonSerialize(): mixed

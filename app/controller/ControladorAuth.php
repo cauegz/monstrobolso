@@ -86,5 +86,9 @@ class ControladorAuth extends ControladorGeral {
         $_SESSION = [];
         session_destroy();
         $this->responseJSON(['ok' => true]);
+        $this->responseJSON([
+            "ok" => true,
+            "mensagem" => "usuário cadastrado com sucesso"
+        ]);
     }
 }
