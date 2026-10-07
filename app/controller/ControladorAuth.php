@@ -14,6 +14,9 @@ class ControladorAuth extends ControladorGeral{
         }catch(Exception $e){
             $this->responseError($e->getMessage(), 400);
         }
-        $this->responseJSON(Usuario::find($usuario->id));
+        $this->responseJSON([
+            "ok" => true,
+            "mensagem" => "usuário cadastrado com sucesso"
+        ]);
     }
 }
