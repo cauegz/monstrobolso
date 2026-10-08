@@ -8,46 +8,47 @@
 </head>
 <body>
     <div id="canvas">
-    <form>
-        <h2 id="login-title">Login</h2>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">Senha:</label>
-        <input type="password" id="password" name="password" required>
-        <div id="btns">
-            <button type="submit" onclick="enviar(event)">Entrar</button>
-            <span>Não tem uma conta?<a href="cadastro.html"> Cadastre-se</a></span>
-        </div>
-    </form>
+        <form id="form-login">
+            <h2 id="login-title">Login</h2>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+            <div id="btns">
+                <button type="submit">Entrar</button>
+                <span>Não tem uma conta?<a href="cadastro.html"> Cadastre-se</a></span>
+            </div>
+        </form>
     </div>
+
     <script>
-       async function enviar(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            jsonData = {
-                "nome": username,
-                "senha": password
-            };
-            jsonData = JSON.stringify(jsonData);
-            try {
-                const response = await fetch('http://localhost:8080/api/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: jsonData
-                });
-                const data = await response.json();
-                if (data.success) {
-                   console.log('Success:', data);
-                } else {
-                    alert(data.mensagem);
-                }
-            } catch (error) {
-                console.error('Error:', error);
+    document.getElementById('form-login').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const payload = {
+            login: document.getElementById('username').value.trim(),
+            senha: document.getElementById('password').value
+        };
+
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'same-origin',
+                body: JSON.stringify(payload)
+            });
+            const data = await response.json();
+
+            if (data.ok) {
+                window.location.href = 'index.html';
+            } else {
+                alert(data.mensagem || 'Não foi possível entrar.');
             }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Erro de conexão com o servidor.');
         }
+    });
     </script>
 </body>
 </html>
