@@ -20,64 +20,63 @@ class ControladorAuth extends ControladorGeral {
 
         if ($nome === '') {
             $this->responseError('Informe o nome.', 422);
+            return;
         }
         if (!preg_match('/^[a-z0-9_.]{3,30}$/', $login)) {
             $this->responseError('Login inválido. Use 3 a 30 caracteres: letras, números, "_" ou ".".', 422);
-        }
-        if (strlen($senha) <= 8) {
-            $this->responseError('A senha precisa ter 8+ caracteres.', 422);
+            return;
         }
 
         try {
             $usuario = new Usuario();
             $usuario->nome  = $nome;
             $usuario->login = $login;
-            $usuario->senha = password_hash($senha, PASSWORD_DEFAULT);
+            $usuario->senha = $senha; // o model valida e faz o hash
             $usuario->save();
+        } catch (InvalidArgumentException $e) {
+            $this->responseError($e->getMessage(), 422); // senha fraca
+            return;
         } catch (PDOException $e) {
             if ($e->getCode() === '23505') { // unique_violation
                 $this->responseError('Login já está em uso.', 409);
+                return;
             }
             error_log($e->getMessage());
             $this->responseError('Erro interno.', 500);
-        } catch (Exception $e) {
-            error_log($e->getMessage());
-            $this->responseError('Não foi possível cadastrar.', 400);
+            return;
         }
 
         $this->responseJSON([
-            'ok'   => true,
-            'id'   => $usuario->id,
-            'nome' => $usuario->nome,
+            'ok'    => true,
+            'id'    => $usuario->id,
+            'nome'  => $usuario->nome,
             'login' => $usuario->login,
         ], 201);
     }
 
     public function login() {
-        $d    = $this->receiveJSON();
+        $d     = $this->receiveJSON();
         $login = strtolower(trim($d['login'] ?? ''));
         $senha = $d['senha'] ?? '';
 
-        $stmt = Conexao::getPDO()->prepare(
-            'SELECT id, nome, login, senha FROM usuarios WHERE login = ?'
-        );
-        $stmt->execute([$login]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = Usuario::findByLogin($login);
 
-        if (!$user || !password_verify($senha, $user['senha'])) {
+        if (!$user || !password_verify($senha, $user->senha)) {
             $this->responseError('Login ou senha incorretos.', 401);
+            return;
         }
 
         session_regenerate_id(true);
-        $_SESSION['usuario_id']   = $user['id'];
-        $_SESSION['usuario_nome'] = $user['nome'];
+        $_SESSION['usuario_id']   = $user->id;
+        $_SESSION['usuario_nome'] = $user->nome;
 
-        $this->responseJSON(['ok' => true, 'nome' => $user['nome'], 'login' => $user['login']]);
+        $this->responseJSON(['ok' => true, 'nome' => $user->nome, 'login' => $user->login]);
     }
 
-    public function me() { //consulta sessão: tem alguém logado agr?
+    public function me() { // consulta sessão: tem alguém logado agora?
         if (empty($_SESSION['usuario_id'])) {
             $this->responseError('Não autenticado.', 401);
+            return;
         }
         $this->responseJSON(['ok' => true, 'nome' => $_SESSION['usuario_nome']]);
     }
@@ -86,9 +85,5 @@ class ControladorAuth extends ControladorGeral {
         $_SESSION = [];
         session_destroy();
         $this->responseJSON(['ok' => true]);
-        $this->responseJSON([
-            "ok" => true,
-            "mensagem" => "usuário cadastrado com sucesso"
-        ]);
     }
 }
