@@ -51,7 +51,7 @@ class ControladorAuth extends ControladorGeral {
             'id'    => $usuario->id,
             'nome'  => $usuario->nome,
             'login' => $usuario->login,
-        ], 201);
+        ]);
     }
 
     public function login() {
@@ -78,7 +78,13 @@ class ControladorAuth extends ControladorGeral {
             $this->responseError('Não autenticado.', 401);
             return;
         }
-        $this->responseJSON(['ok' => true, 'nome' => $_SESSION['usuario_nome']]);
+        $id = $_SESSION['usuario_id'];
+        $usuario = Usuario::find($id);
+        $this->responseJSON([
+            'ok' => true, 
+            'nome' => $usuario->nome,
+            'login' => $usuario->login 
+        ]);
     }
 
     public function logout() {

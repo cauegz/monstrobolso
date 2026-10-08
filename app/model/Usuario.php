@@ -110,6 +110,13 @@ class Usuario implements JsonSerializable{
         }
     }
 
+    public static function findByLogin(string $login)
+    {
+        $stmt = self::getPDO()->prepare("SELECT * FROM usuario WHERE login = :login");
+        $stmt->execute([':login' => $login]);
+        return $stmt->fetchObject(self::class); // false se não existir
+    }
+
     /**
      * Verifica se a senha do usuário é válida e depois da um hash
      * 
@@ -117,12 +124,6 @@ class Usuario implements JsonSerializable{
      * 
      * @return void; 
      */
-    public static function findByLogin(string $login)
-    {
-        $stmt = self::getPDO()->prepare("SELECT * FROM usuario WHERE login = :login");
-        $stmt->execute([':login' => $login]);
-        return $stmt->fetchObject(self::class); // false se não existir
-    }
     public function setSenha($senha){
         if (strlen($senha) < 8 || !preg_match('/[A-Z]/', $senha) || !preg_match('/[a-z]/', $senha)) {
             throw new InvalidArgumentException('A senha precisa ter no minímo 8 caracteres, com letra maiúscula e minúscula.');
