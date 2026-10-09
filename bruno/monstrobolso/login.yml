@@ -1,18 +1,16 @@
 info:
-    name: cadastro
+    name: login
     type: http
-    seq: 1
 
 http:
     method: POST
-    url: http://localhost:8080/api/cadastro
+    url: http://localhost:8080/api/login
     body:
         type: json
         data: |-
             {
               "login": "testeaaaaaa",
-              "senha": "SENHAMUITOFORTE",
-              "nome": "Teste Nome"
+              "senha": "SENHAMUITOFORTe"
             }
     auth: inherit
 
