@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro/Login</title>
+    <link rel="stylesheet" href="../css/form-style.css">
+</head>
+<body>
+    <div id="canvas">
+        <form id="form-login">
+            <h2 id="login-title">Login</h2>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+            <div id="btns">
+                <button type="submit">Entrar</button>
+                <span>Não tem uma conta?<a href="cadastro.html"> Cadastre-se</a></span>
+            </div>
+        </form>
+    </div>
+
+    <script>
+    document.getElementById('form-login').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const payload = {
+            login: document.getElementById('username').value.trim(),
+            senha: document.getElementById('password').value
+        };
+
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'same-origin',
+                body: JSON.stringify(payload)
+            });
+            const data = await response.json();
+
+            if (data.ok) {
+                window.location.href = 'index.html';
+            } else {
+                alert(data.mensagem || 'Não foi possível entrar.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Erro de conexão com o servidor.');
+        }
+    });
+    </script>
+</body>
+</html>

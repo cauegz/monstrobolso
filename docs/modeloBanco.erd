@@ -6,13 +6,13 @@
     "height": 2000,
     "scrollTop": 0,
     "scrollLeft": 0,
-    "originX": -79.6041,
-    "originY": 34.2204,
-    "zoomLevel": 0.76,
+    "originX": -362.0801,
+    "originY": -380.4403,
+    "zoomLevel": 1.12,
     "show": 511,
     "database": 16,
     "databaseName": "",
-    "canvasType": "@dineug/erd-editor/builtin-schema-sql",
+    "canvasType": "ERD",
     "language": 1,
     "tableNameCase": 4,
     "columnNameCase": 2,
@@ -329,7 +329,7 @@
           "keys": 0,
           "widthName": 60,
           "widthComment": 60,
-          "widthDataType": 83,
+          "widthDataType": 85,
           "widthDefault": 60
         },
         "meta": {
@@ -369,7 +369,7 @@
           "keys": 0,
           "widthName": 60,
           "widthComment": 60,
-          "widthDataType": 83,
+          "widthDataType": 85,
           "widthDefault": 60
         },
         "meta": {
@@ -389,7 +389,7 @@
           "keys": 0,
           "widthName": 60,
           "widthComment": 60,
-          "widthDataType": 83,
+          "widthDataType": 85,
           "widthDefault": 60
         },
         "meta": {
@@ -629,7 +629,7 @@
           "keys": 0,
           "widthName": 60,
           "widthComment": 60,
-          "widthDataType": 83,
+          "widthDataType": 85,
           "widthDefault": 60
         },
         "meta": {
@@ -689,7 +689,7 @@
           "keys": 0,
           "widthName": 60,
           "widthComment": 60,
-          "widthDataType": 83,
+          "widthDataType": 85,
           "widthDefault": 60
         },
         "meta": {
@@ -707,7 +707,7 @@
         "options": 8,
         "ui": {
           "keys": 2,
-          "widthName": 65,
+          "widthName": 63,
           "widthComment": 60,
           "widthDataType": 60,
           "widthDefault": 60
@@ -769,7 +769,7 @@
           "keys": 0,
           "widthName": 60,
           "widthComment": 60,
-          "widthDataType": 83,
+          "widthDataType": 85,
           "widthDefault": 60
         },
         "meta": {
@@ -967,7 +967,7 @@
         "options": 8,
         "ui": {
           "keys": 2,
-          "widthName": 68,
+          "widthName": 65,
           "widthComment": 60,
           "widthDataType": 60,
           "widthDefault": 60
@@ -987,7 +987,7 @@
         "options": 8,
         "ui": {
           "keys": 2,
-          "widthName": 68,
+          "widthName": 65,
           "widthComment": 60,
           "widthDataType": 60,
           "widthDefault": 60
@@ -1041,7 +1041,7 @@
           "columnIds": [
             "PBIikG17nZwJkLsXMJCAG"
           ],
-          "x": 1238.0911,
+          "x": 1239.0911,
           "y": 704.9097,
           "direction": 4
         },
@@ -1080,7 +1080,7 @@
           "columnIds": [
             "PeE-zbUdjeXRMZq0YFEv6"
           ],
-          "x": 1407.7838000000002,
+          "x": 1404.7838000000002,
           "y": -94.4459,
           "direction": 2
         },
@@ -1251,7 +1251,7 @@
           "columnIds": [
             "We-00xvJVLnVgoHs6kr6x"
           ],
-          "x": 646.8858,
+          "x": 647.8858,
           "y": 597.2199,
           "direction": 4
         },
@@ -1320,7 +1320,7 @@
           "columnIds": [
             "weugpdqnjx_xvHWS7G7In"
           ],
-          "x": 523.079,
+          "x": 520.079,
           "y": -47.4054,
           "direction": 2
         },
