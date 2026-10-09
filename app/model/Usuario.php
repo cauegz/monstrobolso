@@ -22,6 +22,9 @@ class Usuario implements JsonSerializable{
 
     public function __set(string $nome, $valor)
     {
+        if(!trim($valor)){
+            throw new InvalidArgumentException('Credenciais inválidas');
+        }
         //antes de executar o set padrão verifica se tem algum explícito na classe
         $metodo = 'set' . ucfirst($nome);
 
