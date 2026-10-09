@@ -24,7 +24,7 @@
                     msg.textContent = 'Logado como ' + d.nome;
                     btnSair.hidden = false;
                 } else {
-                    // window.location.href = 'login.html';
+                    window.location.href = 'login.html';
                 }
             } catch (e) {
                 console.error(e);
@@ -33,19 +33,7 @@
         }
 
         btnSair.addEventListener('click', async () => {
-<<<<<<< HEAD:public/frontend/pages/index.html
-<<<<<<< HEAD
-<<<<<<< HEAD:public/frontend/pages/index.html
             await fetch('http://localhost:8080/api/logout', { method: 'POST', credentials: 'include' });
-=======
-            await fetch('http://localhost:8080/api/logout', { method: 'POST', credentials: 'sinclude' });
->>>>>>> 74c89e0 (fix(login): mexi numas coisas do login):frontend/pages/index.html
-=======
-            await fetch('http://localhost:8080/api/logout', { method: 'POST', credentials: 'include' });
->>>>>>> c278f92 (fix(login): faz o login funcionar na mesma página)
-=======
-            await fetch('http://localhost:8080/api/logout', { method: 'POST', credentials: 'sinclude' });
->>>>>>> 74c89e0 (fix(login): mexi numas coisas do login):frontend/pages/index.html
             window.location.href = 'login.html';
         });
 
