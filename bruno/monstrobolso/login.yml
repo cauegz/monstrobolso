@@ -1,21 +1,22 @@
 info:
-  name: login
-  type: http
+    name: login
+    type: http
 
 http:
-  method: POST
-  url: http://localhost:8080/api/login
-  body:
-    type: json
-    data: |-
-      {
-        "login": "testeaaaaaa",
-        "senha": "SENHAMUITOFORTe"
-      }
-  auth: inherit
+    method: POST
+    url: http://localhost:8080/api/login
+    body:
+        type: json
+        data: |-
+            {
+              "login": "testeaaaaaa",
+              "senha": "SENHAMUITOFORTe"
+            }
+    auth: inherit
 
 settings:
-  encodeUrl: true
-  timeout: 0
-  followRedirects: true
-  maxRedirects: 5
+    encodeUrl: true
+    timeout: 0
+    followRedirects: true
+    maxRedirects: 5
+​
