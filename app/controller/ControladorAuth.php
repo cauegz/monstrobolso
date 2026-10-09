@@ -62,7 +62,7 @@ class ControladorAuth extends ControladorGeral {
         $user = Usuario::findByLogin($login);
 
         if (!$user || !password_verify($senha, $user->senha)) {
-            $this->responseError('Login ou senha incorretos.', 401);
+            $this->responseError('Login ou senha incorretos.', 400); //login ou senha incorretos é 400(bad request)
             return;
         }
 
@@ -75,7 +75,7 @@ class ControladorAuth extends ControladorGeral {
 
     public function me() { // consulta sessão: tem alguém logado agora?
         if (empty($_SESSION['usuario_id'])) {
-            $this->responseError('Não autenticado.', 401);
+            $this->responseError('Rota não encontrada', 404); //evitar usar 401 para não expor a rota
             return;
         }
         $id = $_SESSION['usuario_id'];

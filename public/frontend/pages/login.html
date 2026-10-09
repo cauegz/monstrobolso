@@ -31,16 +31,17 @@
         };
 
         try {
-            const response = await fetch('/api/login', {
+            const response = await fetch('http://localhost:8080/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                credentials: 'same-origin',
+                credentials: 'include',
                 body: JSON.stringify(payload)
             });
             const data = await response.json();
+            console.log(data)
 
             if (data.ok) {
-                window.location.href = 'index.html';
+                window.location.href = 'index.html'; //proteger a rota depois, pra quem nao esta acessado nao conseguir entrar na página
             } else {
                 alert(data.mensagem || 'Não foi possível entrar.');
             }
