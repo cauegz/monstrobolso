@@ -18,7 +18,6 @@ class ControladorAuth extends ControladorGeral {
         $login = strtolower(trim($d['login'] ?? ''));
         $senha = $d['senha'] ?? '';
 
->>>>>>> c278f92 (fix(login): faz o login funcionar na mesma página)
         try {
             $usuario = new Usuario();
             $usuario->nome  = $nome;
