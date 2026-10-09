@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../Autoload.php';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: *");
 =======
@@ -17,6 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 >>>>>>> 74c89e0 (fix(login): mexi numas coisas do login)
+=======
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: *");
+>>>>>>> c278f92 (fix(login): faz o login funcionar na mesma página)
 
 $url = $_SERVER['REQUEST_URI'];
 
