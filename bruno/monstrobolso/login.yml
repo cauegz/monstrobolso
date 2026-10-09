@@ -1,5 +1,6 @@
 info:
 <<<<<<< HEAD
+<<<<<<< HEAD
     name: login
     type: http
 
@@ -24,22 +25,34 @@ settings:
 =======
   name: login
   type: http
+=======
+    name: login
+    type: http
+>>>>>>> 74c89e0 (fix(login): mexi numas coisas do login)
 
 http:
-  method: POST
-  url: http://localhost:8080/api/login
-  body:
-    type: json
-    data: |-
-      {
-        "login": "testeaaaaaa",
-        "senha": "SENHAMUITOFORTe"
-      }
-  auth: inherit
+    method: POST
+    url: http://localhost:8080/api/login
+    body:
+        type: json
+        data: |-
+            {
+              "login": "testeaaaaaa",
+              "senha": "SENHAMUITOFORTe"
+            }
+    auth: inherit
 
 settings:
+<<<<<<< HEAD
   encodeUrl: true
   timeout: 0
   followRedirects: true
   maxRedirects: 5
 >>>>>>> efa4004 (fix(auth): muda um método de lugar e faz o /me retornar o login também)
+=======
+    encodeUrl: true
+    timeout: 0
+    followRedirects: true
+    maxRedirects: 5
+​
+>>>>>>> 74c89e0 (fix(login): mexi numas coisas do login)
