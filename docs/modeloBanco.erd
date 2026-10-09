@@ -6,9 +6,9 @@
     "height": 2000,
     "scrollTop": 0,
     "scrollLeft": 0,
-    "originX": -452.8103,
-    "originY": 369.4958,
-    "zoomLevel": 0.85,
+    "originX": -77.1718,
+    "originY": 250.2507,
+    "zoomLevel": 0.7,
     "show": 511,
     "database": 16,
     "databaseName": "",
@@ -192,15 +192,15 @@
           "s8CbKRrLXKQB0ZZePTnW8"
         ],
         "ui": {
-          "x": 1017.5911,
-          "y": 704.9097,
+          "x": 1020.1227,
+          "y": 837.8211,
           "zIndex": 140,
           "widthName": 60,
           "widthComment": 60,
           "color": ""
         },
         "meta": {
-          "updateAt": 1790962035516,
+          "updateAt": 1791567212233,
           "createAt": 1790960974801
         }
       },
@@ -966,13 +966,15 @@
         "identification": false,
         "relationshipType": 16,
         "startRelationshipType": 2,
+        "onDelete": 1,
+        "onUpdate": 1,
         "start": {
           "tableId": "TM6SvTL7HLRYB5yb1ipaP",
           "columnIds": [
             "PBIikG17nZwJkLsXMJCAG"
           ],
-          "x": 1237.0911,
-          "y": 704.9097,
+          "x": 1239.6227,
+          "y": 837.8211,
           "direction": 4
         },
         "end": {
@@ -994,6 +996,8 @@
         "identification": false,
         "relationshipType": 16,
         "startRelationshipType": 2,
+        "onDelete": 1,
+        "onUpdate": 1,
         "start": {
           "tableId": "zFl2Cl8O88e2KCvyvAt05",
           "columnIds": [
@@ -1022,6 +1026,8 @@
         "identification": false,
         "relationshipType": 4,
         "startRelationshipType": 2,
+        "onDelete": 1,
+        "onUpdate": 1,
         "start": {
           "tableId": "U1y3zoV102grouoIhzNN2",
           "columnIds": [
@@ -1050,6 +1056,8 @@
         "identification": false,
         "relationshipType": 4,
         "startRelationshipType": 2,
+        "onDelete": 1,
+        "onUpdate": 1,
         "start": {
           "tableId": "mZZmDqli3wt2KnJC7LV3E",
           "columnIds": [
@@ -1078,6 +1086,8 @@
         "identification": false,
         "relationshipType": 4,
         "startRelationshipType": 2,
+        "onDelete": 1,
+        "onUpdate": 1,
         "start": {
           "tableId": "40HWuW87rxuEfSF3k1a8v",
           "columnIds": [
@@ -1106,6 +1116,8 @@
         "identification": false,
         "relationshipType": 4,
         "startRelationshipType": 2,
+        "onDelete": 1,
+        "onUpdate": 1,
         "start": {
           "tableId": "40HWuW87rxuEfSF3k1a8v",
           "columnIds": [
