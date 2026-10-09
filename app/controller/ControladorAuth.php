@@ -42,7 +42,7 @@ class ControladorAuth extends ControladorGeral {
                 return;
             }
             error_log($e->getMessage());
-            $this->responseError('Erro interno.', 500);
+            $this->responseError($e->getMessage(), 500);
             return;
         }
 
@@ -51,7 +51,7 @@ class ControladorAuth extends ControladorGeral {
             'id'    => $usuario->id,
             'nome'  => $usuario->nome,
             'login' => $usuario->login,
-        ], 201);
+        ]);
     }
 
     public function login() {
