@@ -42,7 +42,7 @@ class ControladorAuth extends ControladorGeral {
                 return;
             }
             error_log($e->getMessage());
-            $this->responseError('Erro interno.', 500);
+            $this->responseError($e->getMessage(), 500);
             return;
         }
 
