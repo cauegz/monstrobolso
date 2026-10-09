@@ -19,11 +19,11 @@ class ControladorAuth extends ControladorGeral {
         $senha = $d['senha'] ?? '';
 
         if ($nome === '') {
-            $this->responseError('Informe o nome.', 422);
+            $this->responseError('Informe o nome.', 400);
             return;
         }
         if (!preg_match('/^[a-z0-9_.]{3,30}$/', $login)) {
-            $this->responseError('Login inválido. Use 3 a 30 caracteres: letras, números, "_" ou ".".', 422);
+            $this->responseError('Login inválido. Use 3 a 30 caracteres: letras, números, "_" ou ".".', 400);
             return;
         }
 
@@ -34,11 +34,11 @@ class ControladorAuth extends ControladorGeral {
             $usuario->senha = $senha; // o model valida e faz o hash
             $usuario->save();
         } catch (InvalidArgumentException $e) {
-            $this->responseError($e->getMessage(), 422); // senha fraca
+            $this->responseError($e->getMessage(), 400); // senha fraca
             return;
         } catch (PDOException $e) {
             if ($e->getCode() === '23505') { // unique_violation
-                $this->responseError('Login já está em uso.', 409);
+                $this->responseError('Login já está em uso.', 400);
                 return;
             }
             error_log($e->getMessage());

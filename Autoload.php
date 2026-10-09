@@ -10,10 +10,7 @@ function carregar($classe)
     $arquivos = new RecursiveIteratorIterator($diretorio);
 
     foreach ($arquivos as $arquivo) {
-        if (
-            $arquivo->isFile() &&
-            $arquivo->getFilename() === $classe . '.php'
-        ) {
+        if ($arquivo->getFilename() == $classe . '.php') {
             require_once $arquivo->getPathname();
             return;
         }

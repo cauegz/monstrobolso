@@ -24,7 +24,7 @@
                     msg.textContent = 'Logado como ' + d.nome;
                     btnSair.hidden = false;
                 } else {
-                    // window.location.href = 'login.html';
+                    window.location.href = 'login.html';
                 }
             } catch (e) {
                 console.error(e);
@@ -33,7 +33,7 @@
         }
 
         btnSair.addEventListener('click', async () => {
-            await fetch('http://localhost:8080/api/logout', { method: 'POST', credentials: 'sinclude' });
+            await fetch('http://localhost:8080/api/logout', { method: 'POST', credentials: 'include' });
             window.location.href = 'login.html';
         });
 
