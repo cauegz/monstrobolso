@@ -18,17 +18,6 @@ class ControladorAuth extends ControladorGeral {
         $login = strtolower(trim($d['login'] ?? ''));
         $senha = $d['senha'] ?? '';
 
-<<<<<<< HEAD
-=======
-        if ($nome === '') {
-            $this->responseError('Informe o nome.', 400);
-            return;
-        }
-        if (!preg_match('/^[a-z0-9_.]{3,30}$/', $login)) {
-            $this->responseError('Login inválido. Use 3 a 30 caracteres: letras, números, "_" ou ".".', 400);
-            return;
-        }
-
 >>>>>>> c278f92 (fix(login): faz o login funcionar na mesma página)
         try {
             $usuario = new Usuario();
