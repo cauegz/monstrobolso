@@ -30,6 +30,14 @@ CREATE TABLE itens_compra
   PRIMARY KEY (id)
 );
 
+CREATE TABLE log_usuario
+(
+  id         INT          NOT NULL GENERATED ALWAYS AS IDENTITY,
+  usuario_id INT          NOT NULL,
+  mensagem   VARCHAR(200) NOT NULL,
+  PRIMARY KEY (id)
+);
+
 CREATE TABLE loja
 (
   id           INT     NOT NULL GENERATED ALWAYS AS IDENTITY,
@@ -155,4 +163,9 @@ ALTER TABLE itens_compra
 ALTER TABLE itens_compra
   ADD CONSTRAINT FK_usuario_TO_itens_compra
     FOREIGN KEY (id_usuario)
+    REFERENCES usuario (id);
+
+ALTER TABLE log_usuario
+  ADD CONSTRAINT FK_usuario_TO_log_usuario
+    FOREIGN KEY (usuario_id)
     REFERENCES usuario (id);
