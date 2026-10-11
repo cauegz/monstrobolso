@@ -1,4 +1,11 @@
 
+CREATE TABLE categoria
+(
+  id   INT     NOT NULL GENERATED ALWAYS AS IDENTITY,
+  tipo CHAR(1) NOT NULL UNIQUE CHECK (tipo IN ('1','2','3')),
+  PRIMARY KEY (id)
+);
+
 CREATE TABLE efeito
 (
   id   INT          NOT NULL GENERATED ALWAYS AS IDENTITY,
@@ -11,6 +18,23 @@ CREATE TABLE inventario
   id           INT NOT NULL GENERATED ALWAYS AS IDENTITY,
   id_item      INT NOT NULL,
   id_treinador INT NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE itens_compra
+(
+  id         INT NOT NULL GENERATED ALWAYS AS IDENTITY,
+  quantidade INT NOT NULL,
+  id_produto INT NOT NULL,
+  id_usuario INT NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE loja
+(
+  id           INT     NOT NULL GENERATED ALWAYS AS IDENTITY,
+  nome         CHAR(2) NOT NULL UNIQUE CHECK (nome IN ('l1','l2','l3')),
+  categoria_id INT     NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -28,6 +52,16 @@ CREATE TABLE pokemon
   id_efeito    INT NOT NULL,
   hp           INT NOT NULL,
   id_treinador INT NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE produto
+(
+  id           INT           NOT NULL GENERATED ALWAYS AS IDENTITY,
+  nome         VARCHAR(100)  NOT NULL,
+  preco        DECIMAL(10,2) NOT NULL,
+  estoque      INT           NOT NULL,
+  categoria_id INT           NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -55,51 +89,13 @@ CREATE TABLE usuario
   PRIMARY KEY (id)
 );
 
-
-create table categoria
+CREATE TABLE venda
 (
-  id   INT          NOT NULL GENERATED ALWAYS AS IDENTITY,
-  tipo char(1) check (tipo in ('1', '2', '3')) NOT NULL UNIQUE,
+  id              INT NOT NULL GENERATED ALWAYS AS IDENTITY,
+  id_itens_compra INT NOT NULL,
+  id_loja         INT NOT NULL,
   PRIMARY KEY (id)
 );
-create table loja
-(
-  id   INT          NOT NULL GENERATED ALWAYS AS IDENTITY,
-  nome CHAR(2) CHECK (nome IN ('l1', 'l2', 'l3')) NOT NULL UNIQUE,
-  --categoria_id int not null 
-  categoria_id integer REFERENCES categoria (id),
-  PRIMARY KEY (id)
-);
-create table produto
-(
-	id INT          NOT NULL GENERATED ALWAYS AS IDENTITY,
-	nome varchar(100) not null,
-	preco decimal(10,2) not null check(preco < '0'),
-	estoque int not null check(estoque < '-1'),
-	categoria_id integer REFERENCES categoria (id),
-	PRIMARY KEY (id)
-	
-);
-create table itens_compra(
-	id INT          NOT NULL GENERATED ALWAYS AS IDENTITY,
-	quantidade int not null check(quantidade < 0),
-	id_produto integer REFERENCES produto (id) not null,
-	id_usuario integer REFERENCES usuario (id) not null,
-	PRIMARY KEY (id)
-);
-create table venda(
-	id INT          NOT NULL GENERATED ALWAYS AS IDENTITY,
-	id_itens_compra integer REFERENCES itens_compra (id) not null,
-	id_loja integer REFERENCES loja (id) not null,
-	PRIMARY KEY (id)
-);
-
-alter table loja
-alter column categoria_id set not null;
-
-alter table produto
-alter column categoria_id set not null;
-
 
 ALTER TABLE npc
   ADD CONSTRAINT FK_tipo_npc_TO_npc
@@ -130,3 +126,33 @@ ALTER TABLE inventario
   ADD CONSTRAINT FK_treinador_TO_inventario
     FOREIGN KEY (id_treinador)
     REFERENCES treinador (id);
+
+ALTER TABLE produto
+  ADD CONSTRAINT FK_categoria_TO_produto
+    FOREIGN KEY (categoria_id)
+    REFERENCES categoria (id);
+
+ALTER TABLE loja
+  ADD CONSTRAINT FK_categoria_TO_loja
+    FOREIGN KEY (categoria_id)
+    REFERENCES categoria (id);
+
+ALTER TABLE venda
+  ADD CONSTRAINT FK_loja_TO_venda
+    FOREIGN KEY (id_loja)
+    REFERENCES loja (id);
+
+ALTER TABLE venda
+  ADD CONSTRAINT FK_itens_compra_TO_venda
+    FOREIGN KEY (id_itens_compra)
+    REFERENCES itens_compra (id);
+
+ALTER TABLE itens_compra
+  ADD CONSTRAINT FK_produto_TO_itens_compra
+    FOREIGN KEY (id_produto)
+    REFERENCES produto (id);
+
+ALTER TABLE itens_compra
+  ADD CONSTRAINT FK_usuario_TO_itens_compra
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuario (id);
