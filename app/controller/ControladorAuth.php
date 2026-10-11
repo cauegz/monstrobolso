@@ -18,15 +18,6 @@ class ControladorAuth extends ControladorGeral {
         $login = strtolower(trim($d['login'] ?? ''));
         $senha = $d['senha'] ?? '';
 
-        if ($nome === '') {
-            $this->responseError('Informe o nome.', 422);
-            return;
-        }
-        if (!preg_match('/^[a-z0-9_.]{3,30}$/', $login)) {
-            $this->responseError('Login inválido. Use 3 a 30 caracteres: letras, números, "_" ou ".".', 422);
-            return;
-        }
-
         try {
             $usuario = new Usuario();
             $usuario->nome  = $nome;
