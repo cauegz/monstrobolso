@@ -25,15 +25,15 @@ class ControladorAuth extends ControladorGeral {
             $usuario->senha = $senha; // o model valida e faz o hash
             $usuario->save();
         } catch (InvalidArgumentException $e) {
-            $this->responseError($e->getMessage(), 422); // senha fraca
+            $this->responseError($e->getMessage(), 400); // senha fraca
             return;
         } catch (PDOException $e) {
             if ($e->getCode() === '23505') { // unique_violation
-                $this->responseError('Login já está em uso.', 409);
+                $this->responseError('Login já está em uso.', 400);
                 return;
             }
             error_log($e->getMessage());
-            $this->responseError('Erro interno.', 500);
+            $this->responseError($e->getMessage(), 500);
             return;
         }
 
@@ -42,7 +42,7 @@ class ControladorAuth extends ControladorGeral {
             'id'    => $usuario->id,
             'nome'  => $usuario->nome,
             'login' => $usuario->login,
-        ], 201);
+        ]);
     }
 
     public function login() {
@@ -53,7 +53,7 @@ class ControladorAuth extends ControladorGeral {
         $user = Usuario::findByLogin($login);
 
         if (!$user || !password_verify($senha, $user->senha)) {
-            $this->responseError('Login ou senha incorretos.', 401);
+            $this->responseError('Login ou senha incorretos.', 400); //login ou senha incorretos é 400(bad request)
             return;
         }
 
@@ -66,10 +66,16 @@ class ControladorAuth extends ControladorGeral {
 
     public function me() { // consulta sessão: tem alguém logado agora?
         if (empty($_SESSION['usuario_id'])) {
-            $this->responseError('Não autenticado.', 401);
+            $this->responseError('Rota não encontrada', 404); //evitar usar 401 para não expor a rota
             return;
         }
-        $this->responseJSON(['ok' => true, 'nome' => $_SESSION['usuario_nome']]);
+        $id = $_SESSION['usuario_id'];
+        $usuario = Usuario::find($id);
+        $this->responseJSON([
+            'ok' => true, 
+            'nome' => $usuario->nome,
+            'login' => $usuario->login 
+        ]);
     }
 
     public function logout() {

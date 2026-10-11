@@ -16,9 +16,10 @@
 
         async function verificarSessao() {
             try {
-                const r = await fetch('/api/me', { credentials: 'same-origin' });
+                const r = await fetch('http://localhost:8080/api/me', { credentials: 'include' });
                 const d = await r.json();
-
+                console.log(r)
+                console.log(d)
                 if (r.ok && d.ok) {
                     msg.textContent = 'Logado como ' + d.nome;
                     btnSair.hidden = false;
@@ -32,7 +33,7 @@
         }
 
         btnSair.addEventListener('click', async () => {
-            await fetch('/api/logout', { method: 'POST', credentials: 'same-origin' });
+            await fetch('http://localhost:8080/api/logout', { method: 'POST', credentials: 'include' });
             window.location.href = 'login.html';
         });
 
