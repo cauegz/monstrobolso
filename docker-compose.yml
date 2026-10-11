@@ -12,6 +12,7 @@ services:
   db:
     image: postgres:17
     container_name: postgres
+    restart: always
     environment:
       POSTGRES_DB: monstrobolso
       POSTGRES_USER: postgres
