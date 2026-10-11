@@ -22,7 +22,7 @@ class Usuario implements JsonSerializable{
 
     public function __set(string $nome, $valor)
     {
-        if(!trim($valor)){
+        if(!trim($valor) || strlen($valor) < 2){
             throw new InvalidArgumentException('Credenciais inválidas');
         }
         //antes de executar o set padrão verifica se tem algum explícito na classe
@@ -91,7 +91,14 @@ class Usuario implements JsonSerializable{
             $result->bindParam(":senha", $this->senha);
             $result->bindParam(":nome", $this->nome);
 
-            $result->execute();
+            try{
+                $result->execute();
+            } catch (PDOException $e) {
+                if ($e->getCode() === '23505') { // unique_violation
+                    throw new InvalidArgumentException("Login já esta em uso");
+                }
+                throw $e;
+            } 
 
             $this->id = self::getPDO()->lastInsertId();
         } else {
