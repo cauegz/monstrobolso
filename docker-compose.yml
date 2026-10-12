@@ -12,12 +12,13 @@ services:
   db:
     image: postgres:17
     container_name: postgres
+    restart: always
     environment:
       POSTGRES_DB: monstrobolso
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./database:/docker-entrypoint-initdb.d
