@@ -1,0 +1,21 @@
+info:
+    name: categoria
+    type: http
+    seq: 3
+
+http:
+    method: POST
+    url: http://localhost:8080/api/categorias
+    body:
+        type: json
+        data: |-
+            {
+            "tipo": "l1"
+            }
+    auth: inherit
+
+settings:
+    encodeUrl: true
+    timeout: 0
+    followRedirects: true
+    maxRedirects: 5
