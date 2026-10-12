@@ -1,0 +1,11 @@
+:root{
+    --cor-menus: #f0e6a4;
+    --cor-fontes: #4a4530;
+    --cor-input-text:  #fffbea;
+    --cor-borda-input-text: #d6c95e;
+    --cor-btn-menus: #f52323;
+    --cor-hover-btn-menus: #d91414;
+    --cor-fonte-btns: white;
+
+    --fonte-principal: 'Pixelify Sans', sans-serif;
+}
