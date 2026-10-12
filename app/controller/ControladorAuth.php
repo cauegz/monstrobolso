@@ -17,24 +17,21 @@ class ControladorAuth extends ControladorGeral {
         $nome  = trim($d['nome'] ?? '');
         $login = strtolower(trim($d['login'] ?? ''));
         $senha = $d['senha'] ?? '';
+        
+        $usuario = new Usuario();
 
         try {
-            $usuario = new Usuario();
             $usuario->nome  = $nome;
             $usuario->login = $login;
             $usuario->senha = $senha; // o model valida e faz o hash
             $usuario->save();
         } catch (InvalidArgumentException $e) {
-            $this->responseError($e->getMessage(), 400); // senha fraca
-            return;
-        } catch (PDOException $e) {
-            if ($e->getCode() === '23505') { // unique_violation
-                $this->responseError('Login já está em uso.', 400);
-                return;
-            }
+            error_log($e->getMessage());
+            $this->responseError($e->getMessage(), 400); // senha fraca ou login inválido
+
+        } catch (Exception $e){
             error_log($e->getMessage());
             $this->responseError($e->getMessage(), 500);
-            return;
         }
 
         $this->responseJSON([

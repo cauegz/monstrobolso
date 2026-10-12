@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../Autoload.php';
+require_once __DIR__ . '/../autoload.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: *");
