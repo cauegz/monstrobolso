@@ -29,9 +29,11 @@ selecionarPoke.addEventListener("click", async (event)=>{
 
         const imgUrl = pokeSelecionado.sprites.front_default;
 
-        div.innerHTML += `<p>Pokemon ${pokemonEquipe}: ${pokeSelecionado.name}</p><img src=${imgUrl} />`;
+        div.innerHTML += `<p>${pokeSelecionado.name.charAt(0).toUpperCase() + pokeSelecionado.name.slice(1)}</p><img src=${imgUrl} />`; 
+        // retorna o nome do pokemon com a primeira letra maiúscula e a imagem do dele
 
         time[pokemonEquipe-1] = pokeSelecionado.id;
+        //-1 porque o array começa do 0 e a posição do pokemon na equipe começa do 1
 
         selecionarPoke.close();
     }
