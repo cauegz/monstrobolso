@@ -1,6 +1,6 @@
 <?php
 
-class Time implements JsonSerializable
+class Pokemon implements JsonSerializable
 {
     private static $pdo;
 
@@ -40,14 +40,14 @@ class Time implements JsonSerializable
 
     public static function find($id)
     {
-        $sql = "SELECT id, hp, ataque, defesa, velocidade, 
-                    id_pokeapi as 'pokeApi', 
-                    id_efeito as 'efeito',
-                    id_treinador as 'treinador',
-                    ataque_especial as 'ataqueEspecial',
-                    defesa_especial as 'defesaEspecial'
+        $sql = 'SELECT id, hp, ataque, defesa, velocidade,
+                    id_pokeapi AS "pokeApi",
+                    id_efeito AS "efeito",
+                    id_treinador AS "treinador",
+                    ataque_especial AS "ataqueEspecial",
+                    defesa_especial AS "defesaEspecial"
                 FROM pokemon
-                WHERE id = :id";
+                WHERE id = :id;';
 
         $result = self::getPDO()->prepare($sql);
 
@@ -60,13 +60,13 @@ class Time implements JsonSerializable
 
     public static function all($filter = null)
     {
-        $sql = "SELECT id, hp, ataque, defesa, velocidade, 
-                    id_pokeapi as 'pokeApi', 
-                    id_efeito as 'efeito',
-                    id_treinador as 'treinador',
-                    ataque_especial as 'ataqueEspecial',
-                    defesa_especial as 'defesaEspecial'
-                FROM pokemon";
+        $sql = 'SELECT id, hp, ataque, defesa, velocidade, 
+                    id_pokeapi as "pokeApi", 
+                    id_efeito as "efeito",
+                    id_treinador as "treinador",
+                    ataque_especial as "ataqueEspecial",
+                    defesa_especial as "defesaEspecial"
+                FROM pokemon';
 
         if ($filter) {
             $sql .= " WHERE " . $filter;
