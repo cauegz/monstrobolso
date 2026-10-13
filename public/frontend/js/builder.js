@@ -3,6 +3,9 @@ const btnSelecionarPoke = document.querySelectorAll('.btn-selecionar-poke');
 const selecionarPoke = document.getElementById("selecionar-poke");
 const fechaModal = document.getElementById("fecha-modal");
 
+ time = new Array(6);
+let pokemonEquipe;
+
 const esperarSegundos = seg => new Promise(resolve => setTimeout(resolve, seg*1000));
 
 btnSelecionarPoke.forEach(botao =>{
@@ -26,15 +29,14 @@ selecionarPoke.addEventListener("click", async (event)=>{
 
         const imgUrl = pokeSelecionado.sprites.front_default;
 
-        console.log(imgUrl);
         div.innerHTML += `<p>Pokemon ${pokemonEquipe}: ${pokeSelecionado.name}</p><img src=${imgUrl} />`;
 
-        console.log(pokeSelecionado);
-        
+        time[pokemonEquipe-1] = pokeSelecionado.id;
+
         selecionarPoke.close();
     }
 })
-//carrega os pokemon
+
 const pokemons = document.getElementById("pokemons");
 async function carregaPokemons() {
     try {
@@ -68,6 +70,32 @@ async function carregaPokemons() {
         console.log("erro ao buscar na api: " + error);
         pokemons.innerHTML = "erro";
     }
+}
+
+carregaPokemons();
+
+async function enviar() {
+    try{
+        payload = {
+            "pokemon": time
+        }
+       const jsonData = JSON.stringify(payload);
+       console.log(payload);
+       console.log(jsonData);
+
+       const response = await fetch("http://localhost:8080/api/builder", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: 'include',
+        body: jsonData
+       });
+       const result = await response.json();
+       console.log(result);
+       console.log("deu tudo certo /:D");
+    }catch(error){
+        console.log("erro ao enviar para a api: " + error);
+    }
     
 }
-carregaPokemons();

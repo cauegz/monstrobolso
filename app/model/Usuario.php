@@ -101,6 +101,7 @@ class Usuario implements JsonSerializable{
             } 
 
             $this->id = self::getPDO()->lastInsertId();
+            LogUsuario::salvar($this->id, "O usuario {$this->login} se cadastrou no sistema");
         } else {
 
             $sql = "UPDATE usuario
