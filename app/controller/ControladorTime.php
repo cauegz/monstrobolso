@@ -12,6 +12,8 @@ class ControladorTime extends ControladorGeral{
      */
     public function criarTime(){
         $pokemon = $this->receiveJSON()['pokemon'];
+
+        
         $this->responseJSON($pokemon);
     }
 }

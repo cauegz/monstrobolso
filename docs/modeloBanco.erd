@@ -103,6 +103,11 @@
           "22WEqZgUR6h2v-SLHOJsZ",
           "03h1jci0ahg8q5a3pv0h1y4qz",
           "9i6lAtOLCnczc3qBVWenH",
+          "03h1k4f3to72ggaosb5ezfw1s",
+          "03h1k4lgfng1x15k70xbalu22",
+          "03h1k4mgompfhzjedqie28cz5",
+          "03h1k4nfbky82izb92zez5cht",
+          "03h1k4oogb8k3n182200o6ndo",
           "PeE-zbUdjeXRMZq0YFEv6",
           "y4cquzCQmrjmiLnKHwpdq"
         ],
@@ -344,6 +349,51 @@
         "comment": "",
         "dataType": "INT",
         "default": "",
+        "options": 8
+      },
+      "03h1k4f3to72ggaosb5ezfw1s": {
+        "id": "03h1k4f3to72ggaosb5ezfw1s",
+        "tableId": "5gyhgjfTof-u_Ip9Nq2iR",
+        "name": "ataque",
+        "comment": "",
+        "dataType": "INT",
+        "default": "0",
+        "options": 8
+      },
+      "03h1k4lgfng1x15k70xbalu22": {
+        "id": "03h1k4lgfng1x15k70xbalu22",
+        "tableId": "5gyhgjfTof-u_Ip9Nq2iR",
+        "name": "defesa",
+        "comment": "",
+        "dataType": "INT",
+        "default": "0",
+        "options": 8
+      },
+      "03h1k4mgompfhzjedqie28cz5": {
+        "id": "03h1k4mgompfhzjedqie28cz5",
+        "tableId": "5gyhgjfTof-u_Ip9Nq2iR",
+        "name": "ataque_especial",
+        "comment": "",
+        "dataType": "INT",
+        "default": "0",
+        "options": 8
+      },
+      "03h1k4nfbky82izb92zez5cht": {
+        "id": "03h1k4nfbky82izb92zez5cht",
+        "tableId": "5gyhgjfTof-u_Ip9Nq2iR",
+        "name": "defesa_especial",
+        "comment": "",
+        "dataType": "INT",
+        "default": "0",
+        "options": 8
+      },
+      "03h1k4oogb8k3n182200o6ndo": {
+        "id": "03h1k4oogb8k3n182200o6ndo",
+        "tableId": "5gyhgjfTof-u_Ip9Nq2iR",
+        "name": "velocidade",
+        "comment": "",
+        "dataType": "INT",
+        "default": "0",
         "options": 8
       },
       "22WEqZgUR6h2v-SLHOJsZ": {
