@@ -3,7 +3,8 @@ const btnSelecionarPoke = document.querySelectorAll('.btn-selecionar-poke');
 const selecionarPoke = document.getElementById("selecionar-poke");
 const fechaModal = document.getElementById("fecha-modal");
 
-time = new Array(6);
+ time = new Array(6);
+let pokemonEquipe;
 
 const esperarSegundos = seg => new Promise(resolve => setTimeout(resolve, seg*1000));
 
@@ -73,6 +74,28 @@ async function carregaPokemons() {
 
 carregaPokemons();
 
-function enviar(){
+async function enviar() {
+    try{
+        payload = {
+            "pokemon": time
+        }
+       const jsonData = JSON.stringify(payload);
+       console.log(payload);
+       console.log(jsonData);
+
+       const response = await fetch("http://localhost:8080/api/builder", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: 'include',
+        body: jsonData
+       });
+       const result = await response.json();
+       console.log(result);
+       console.log("deu tudo certo /:D");
+    }catch(error){
+        console.log("erro ao enviar para a api: " + error);
+    }
     
 }
