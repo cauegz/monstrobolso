@@ -90,8 +90,8 @@
           "qsxPVXRH4sN6NGYXvuc3O"
         ],
         "ui": {
-          "x": 1205.3299394670926,
-          "y": 519.0619476031724,
+          "x": 1179.0141,
+          "y": 507.2198,
           "color": ""
         }
       },
@@ -101,6 +101,7 @@
         "comment": "",
         "columnIds": [
           "22WEqZgUR6h2v-SLHOJsZ",
+          "03h1jci0ahg8q5a3pv0h1y4qz",
           "9i6lAtOLCnczc3qBVWenH",
           "PeE-zbUdjeXRMZq0YFEv6",
           "y4cquzCQmrjmiLnKHwpdq"
@@ -133,11 +134,12 @@
         "columnIds": [
           "Lr6GF0dvwwtWGWqsmjGFm",
           "0KbsEkoCj800SeufPbAI3",
-          "weugpdqnjx_xvHWS7G7In"
+          "weugpdqnjx_xvHWS7G7In",
+          "new_quantidade_column"
         ],
         "ui": {
-          "x": 893.4417529813347,
-          "y": 860.2454990883004,
+          "x": 851.3365,
+          "y": 835.2455,
           "color": ""
         }
       },
@@ -148,11 +150,12 @@
         "columnIds": [
           "1-N2ShoQ3N66PXqW4z40-",
           "yxYZIDms3xnhp5Glj2Iu3",
-          "-x_7nFzzwTb8twNRm0e1r"
+          "-x_7nFzzwTb8twNRm0e1r",
+          "new_criado_em_column"
         ],
         "ui": {
-          "x": 411.5333005445192,
-          "y": 754.241384974591,
+          "x": 149.6912,
+          "y": 729.2414,
           "color": ""
         }
       },
@@ -180,8 +183,8 @@
           "QymA8omWEFSco8uFJUZSb"
         ],
         "ui": {
-          "x": 1646.685545778448,
-          "y": 643.1043876414512,
+          "x": 1680.8961,
+          "y": 739.157,
           "color": ""
         }
       },
@@ -252,6 +255,7 @@
         "comment": "",
         "columnIds": [
           "NLTpaXU6iYh8Cva4kEM_P",
+          "03h1jiai9snqzhyod7abk9ffy",
           "jIll2pVPe-0szzYNzyAPX",
           "bmUYcw-ymfpoeFGHwwsKk",
           "29-wh5eTfekL3FEAHlUFL",
@@ -313,7 +317,7 @@
         "comment": "",
         "dataType": "INT",
         "default": "",
-        "options": 8
+        "options": 0
       },
       "slJ9UfeDjsKf9tr8BVR2L": {
         "id": "slJ9UfeDjsKf9tr8BVR2L",
@@ -322,7 +326,7 @@
         "comment": "",
         "dataType": "INT",
         "default": "",
-        "options": 8
+        "options": 0
       },
       "vCkc68O5WmsvtkiFvnvH1": {
         "id": "vCkc68O5WmsvtkiFvnvH1",
@@ -332,6 +336,15 @@
         "dataType": "INT",
         "default": "",
         "options": 11
+      },
+      "03h1jci0ahg8q5a3pv0h1y4qz": {
+        "id": "03h1jci0ahg8q5a3pv0h1y4qz",
+        "tableId": "5gyhgjfTof-u_Ip9Nq2iR",
+        "name": "id_pokeapi",
+        "comment": "",
+        "dataType": "INT",
+        "default": "",
+        "options": 8
       },
       "22WEqZgUR6h2v-SLHOJsZ": {
         "id": "22WEqZgUR6h2v-SLHOJsZ",
@@ -358,7 +371,7 @@
         "comment": "",
         "dataType": "INT",
         "default": "",
-        "options": 8
+        "options": 0
       },
       "y4cquzCQmrjmiLnKHwpdq": {
         "id": "y4cquzCQmrjmiLnKHwpdq",
@@ -399,7 +412,7 @@
       "0KbsEkoCj800SeufPbAI3": {
         "id": "0KbsEkoCj800SeufPbAI3",
         "tableId": "83IeNkpzpL6y1AsktF6UB",
-        "name": "id_item",
+        "name": "id_item_pokeapi",
         "comment": "",
         "dataType": "INT",
         "default": "",
@@ -413,6 +426,15 @@
         "dataType": "INT",
         "default": "",
         "options": 11
+      },
+      "new_quantidade_column": {
+        "id": "new_quantidade_column",
+        "tableId": "83IeNkpzpL6y1AsktF6UB",
+        "name": "quantidade",
+        "comment": "",
+        "dataType": "INT",
+        "default": "1",
+        "options": 8
       },
       "weugpdqnjx_xvHWS7G7In": {
         "id": "weugpdqnjx_xvHWS7G7In",
@@ -440,6 +462,15 @@
         "dataType": "INT",
         "default": "",
         "options": 11
+      },
+      "new_criado_em_column": {
+        "id": "new_criado_em_column",
+        "tableId": "SNWq7E71gjDZQgaWrZNs7",
+        "name": "criado_em",
+        "comment": "",
+        "dataType": "TIMESTAMP",
+        "default": "CURRENT_TIMESTAMP",
+        "options": 8
       },
       "yxYZIDms3xnhp5Glj2Iu3": {
         "id": "yxYZIDms3xnhp5Glj2Iu3",
@@ -611,6 +642,15 @@
         "dataType": "INT",
         "default": "",
         "options": 11
+      },
+      "03h1jiai9snqzhyod7abk9ffy": {
+        "id": "03h1jiai9snqzhyod7abk9ffy",
+        "tableId": "uA1lWa6XvtBhlrIJ_JN_k",
+        "name": "id_item_pokeapi",
+        "comment": "",
+        "dataType": "INT",
+        "default": "",
+        "options": 12
       },
       "29-wh5eTfekL3FEAHlUFL": {
         "id": "29-wh5eTfekL3FEAHlUFL",
