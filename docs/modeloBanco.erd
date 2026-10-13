@@ -71,6 +71,7 @@
         "comment": "",
         "columnIds": [
           "03h1e8uuvd46s2gdjrsg1e6q8",
+          "03h1ki11iego7yl0i7dvtci3s",
           "03h1e8ynygraobe9afgvyg23w",
           "03h1e9wgvtusbshrpvx32jh8b"
         ],
@@ -310,6 +311,15 @@
         "id": "03h1e9wgvtusbshrpvx32jh8b",
         "tableId": "03h1e8uagbh75rkirlrcwtqpe",
         "name": "id_pokemon",
+        "comment": "",
+        "dataType": "INT",
+        "default": "",
+        "options": 8
+      },
+      "03h1ki11iego7yl0i7dvtci3s": {
+        "id": "03h1ki11iego7yl0i7dvtci3s",
+        "tableId": "03h1e8uagbh75rkirlrcwtqpe",
+        "name": "posicao",
         "comment": "",
         "dataType": "INT",
         "default": "",

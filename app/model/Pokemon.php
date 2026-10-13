@@ -8,15 +8,15 @@ class Pokemon implements JsonSerializable
     private int $pokeApi;
 
     //status
-    private int $hp;
-    private int $ataque;
-    private int $ataqueEspecial;
-    private int $defesa;
-    private int $defesaEspecial;
-    private int $velocidade;
+    private int $hp = 0;
+    private int $ataque = 0;
+    private int $ataqueEspecial = 0;
+    private int $defesa = 0;
+    private int $defesaEspecial = 0;
+    private int $velocidade = 0;
 
     //chaves estrangeiras
-    private ?int $efeito;
+    private ?int $efeito = null;
     private int $treinador;
 
     private static function getPDO()

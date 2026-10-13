@@ -89,6 +89,7 @@ CREATE TABLE IF NOT EXISTS produto
 CREATE TABLE IF NOT EXISTS time
 (
   id           INT NOT NULL GENERATED ALWAYS AS IDENTITY,
+  posicao      INT NOT NULL,
   id_treinador INT NOT NULL,
   id_pokemon   INT NOT NULL,
   PRIMARY KEY (id)
