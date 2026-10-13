@@ -3,6 +3,8 @@ const btnSelecionarPoke = document.querySelectorAll('.btn-selecionar-poke');
 const selecionarPoke = document.getElementById("selecionar-poke");
 const fechaModal = document.getElementById("fecha-modal");
 
+time = new Array(6);
+
 const esperarSegundos = seg => new Promise(resolve => setTimeout(resolve, seg*1000));
 
 btnSelecionarPoke.forEach(botao =>{
@@ -26,15 +28,14 @@ selecionarPoke.addEventListener("click", async (event)=>{
 
         const imgUrl = pokeSelecionado.sprites.front_default;
 
-        console.log(imgUrl);
         div.innerHTML += `<p>Pokemon ${pokemonEquipe}: ${pokeSelecionado.name}</p><img src=${imgUrl} />`;
 
-        console.log(pokeSelecionado);
-        
+        time[pokemonEquipe-1] = pokeSelecionado.id;
+
         selecionarPoke.close();
     }
 })
-//carrega os pokemon
+
 const pokemons = document.getElementById("pokemons");
 async function carregaPokemons() {
     try {
@@ -68,6 +69,10 @@ async function carregaPokemons() {
         console.log("erro ao buscar na api: " + error);
         pokemons.innerHTML = "erro";
     }
+}
+
+carregaPokemons();
+
+function enviar(){
     
 }
-carregaPokemons();
