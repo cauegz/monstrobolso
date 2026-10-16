@@ -12,7 +12,7 @@ class ControladorTime extends ControladorGeral{
      */
     public function criarTime(){
         session_start();
-        if(!$_SESSION['usuario_id']){
+        if(!isset($_SESSION['usuario_id'])){
             $this->responseError("rota nao encontrada", 404); //certo seria 401, mas para não expor a rota dei 404
         }
         $idUsuario = $_SESSION['usuario_id'];
@@ -21,63 +21,64 @@ class ControladorTime extends ControladorGeral{
         
         $indice = 0;
         foreach ($ids as $id) {
-            //puxa os dados da api para salvar os status base no banco
-            $pokeApi = json_decode(file_get_contents("https://pokeapi.co/api/v2/pokemon/$id"));
-            $pokemon = new Pokemon();
+            $pokemonExistente = Pokemon::findByPokeApiAndTreinador($id, $idUsuario);
+            if($pokemonExistente){
+                $pokemon = $pokemonExistente;
+            } else {
+                //puxa os dados da api para salvar os status base no banco
+                $pokeApi = json_decode(file_get_contents("https://pokeapi.co/api/v2/pokemon/$id"));
+                
+                $pokemon = new Pokemon();
 
-            $pokemon->treinador = $idUsuario;
-            $pokemon->pokeApi = $id;
+                $pokemon->treinador = $idUsuario;
+                $pokemon->pokeApi = $id;
 
-            foreach ($pokeApi->stats as $stat) {
-                $nomeStatApi = $stat->stat->name;
+                foreach ($pokeApi->stats as $stat) {
+                    $nomeStatApi = $stat->stat->name;
 
-                //os nomes vem em inglês, por isso precisa "traduzir" para o nosso objeto
-                switch ($nomeStatApi) {
-                    case 'attack':
-                        $pokemon->ataque = $stat->base_stat;
-                        break;
-                    
-                    case 'defense':
-                        $pokemon->defesa = $stat->base_stat;
-                        break;
+                    //os nomes vem em inglês, por isso precisa "traduzir" para o nosso objeto
+                    switch ($nomeStatApi) {
+                        case 'attack':
+                            $pokemon->ataque = $stat->base_stat;
+                            break;
+                        
+                        case 'defense':
+                            $pokemon->defesa = $stat->base_stat;
+                            break;
 
-                    case 'special-attack':
-                        $pokemon->ataqueEspecial = $stat->base_stat;
-                        break;
-                    
-                    case 'special-defense':
-                        $pokemon->defesaEspecial = $stat->base_stat;
-                        break;
+                        case 'special-attack':
+                            $pokemon->ataqueEspecial = $stat->base_stat;
+                            break;
+                        
+                        case 'special-defense':
+                            $pokemon->defesaEspecial = $stat->base_stat;
+                            break;
 
-                    case 'hp':
-                        $pokemon->hp = $stat->base_stat;
-                        break;
+                        case 'hp':
+                            $pokemon->hp = $stat->base_stat;
+                            break;
 
-                    case 'speed':
-                        $pokemon->velocidade = $stat->base_stat;
-                        break;
+                        case 'speed':
+                            $pokemon->velocidade = $stat->base_stat;
+                            break;
+                    }
+                    $pokemon->save();
                 }
             }
-            $array[] = $pokemon;
-            $pokemon->save();
 
-            $time = new Time();
-            $time->treinador = $idUsuario;
-            $time->pokemon = $pokemon->id;
-            $time->posicao = $indice + 1;
-
-           $timePosicao = Time::all(
-                "id_treinador = $time->treinador AND id_pokemon = $time->pokemon"
-            );
-
-            if ($timePosicao) {
-                $timePosicao = $timePosicao[0];
-
-                $timePosicao->posicao = $time->posicao;
-                $timePosicao->save();
+            $time = Time::findByTreinadorAndPosicao($pokemon->treinador, $indice+1);
+            
+            if ($time) {
+                $time->pokemon = $pokemon->id;
             } else {
-                $time->save();
+                $time = new Time();
+                $time->treinador = $idUsuario;
+                $time->pokemon = $pokemon->id;
+                $time->posicao = $indice + 1;
             }
+
+            $time->save();
+
             $indice++;
         }
 

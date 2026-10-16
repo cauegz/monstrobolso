@@ -71,17 +71,17 @@ INSERT INTO pokemon (id_pokeapi, hp, id_efeito, id_treinador) VALUES
 (95, 35, 2, 6);   -- Onix, NPC
 
 -- =========================================
--- 8. Times
+-- 8. Times (deixei comentado pq tava dando pau)
 -- =========================================
-INSERT INTO time (id_treinador, id_pokemon) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(2, 4),
-(2, 5),
-(3, 6),
-(4, 7),
-(6, 8);
+-- INSERT INTO time (id_treinador, id_pokemon) VALUES
+-- (1, 1),
+-- (1, 2),
+-- (1, 3),
+-- (2, 4),
+-- (2, 5),
+-- (3, 6),
+-- (4, 7),
+-- (6, 8);
 
 -- =========================================
 -- 9. Produtos da loja

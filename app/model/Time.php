@@ -107,6 +107,24 @@ class Time implements JsonSerializable
         }
     }
 
+   
+    public static function findByTreinadorAndPosicao($treinador, $posicao)
+    {
+        $sql = "SELECT id, id_treinador AS treinador,
+                    id_pokemon AS pokemon, posicao
+                FROM time
+                WHERE id_treinador = :treinador
+                AND posicao = :posicao";
+
+        $stmt = self::getPDO()->prepare($sql);
+        $stmt->bindParam(":treinador", $treinador);
+        $stmt->bindParam(":posicao", $posicao);
+        $stmt->execute();
+
+        return $stmt->fetchObject(self::class);
+    }
+
+
     public function jsonSerialize(): mixed
     {
         return [

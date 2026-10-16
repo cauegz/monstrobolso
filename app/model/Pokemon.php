@@ -155,6 +155,27 @@ class Pokemon implements JsonSerializable
         }
     }
 
+    public static function findByPokeApiAndTreinador($pokeApi, $treinador){
+        $sql = 'SELECT id, hp, ataque, defesa, velocidade, 
+                    id_pokeapi as "pokeApi", 
+                    id_efeito as "efeito",
+                    id_treinador as "treinador",
+                    ataque_especial as "ataqueEspecial",
+                    defesa_especial as "defesaEspecial" 
+                FROM 
+                    pokemon 
+                WHERE 
+                    id_pokeapi = :pokeApi AND 
+                    id_treinador = :treinador';
+
+        $stmt = self::getPDO()->prepare($sql);
+        $stmt->bindParam(":pokeApi", $pokeApi);
+        $stmt->bindParam(":treinador", $treinador);
+        $stmt->execute();
+
+        return $stmt->fetchObject(self::class);
+    }
+
     public function jsonSerialize(): mixed
     {
         return [
