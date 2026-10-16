@@ -12,6 +12,7 @@ class ControladorAuth extends ControladorGeral {
         }
     }
 
+    // /api/cadastro
     public function cadastro() {
         $d     = $this->receiveJSON();
         $nome  = trim($d['nome'] ?? '');
@@ -46,6 +47,7 @@ class ControladorAuth extends ControladorGeral {
         ]);
     }
 
+    // api/login
     public function login() {
         $d     = $this->receiveJSON();
         $login = strtolower(trim($d['login'] ?? ''));
@@ -65,6 +67,7 @@ class ControladorAuth extends ControladorGeral {
         $this->responseJSON(['ok' => true, 'nome' => $user->nome, 'login' => $user->login]);
     }
 
+    // api/me
     public function me() { // consulta sessão: tem alguém logado agora?
         if (empty($_SESSION['usuario_id'])) {
             $this->responseError('Rota não encontrada', 404); //evitar usar 401 para não expor a rota
@@ -79,6 +82,7 @@ class ControladorAuth extends ControladorGeral {
         ]);
     }
 
+    // api/logout
     public function logout() {
         $_SESSION = [];
         session_destroy();
