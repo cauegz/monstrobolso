@@ -1,5 +1,5 @@
 <?php>
-class Categoria implements \JsonSerializable
+class Produto implements \JsonSerializable
 {
     private static $pdo;
     private ?int $id = null;
