@@ -6,6 +6,7 @@ class Time implements JsonSerializable
 
     private ?int $id = null;
     private int $treinador;
+    private int $posicao = 1;
     private int $pokemon;
 
     private static function getPDO()
@@ -29,7 +30,7 @@ class Time implements JsonSerializable
 
     public static function find($id)
     {
-        $sql = 'SELECT id, id_treinador as "treinador", id_pokemon as "pokemon"
+        $sql = 'SELECT id, id_treinador as "treinador", id_pokemon as "pokemon", posicao
                 FROM time
                 WHERE id = :id';
 
@@ -44,7 +45,7 @@ class Time implements JsonSerializable
 
     public static function all($filter = null)
     {
-        $sql = 'SELECT id, id_treinador as "treinador", id_pokemon as "pokemon"
+        $sql = 'SELECT id, id_treinador as "treinador", id_pokemon as "pokemon", posicao
                 FROM time';
 
         if ($filter) {
@@ -74,13 +75,14 @@ class Time implements JsonSerializable
     {
         if ($this->id == null) {
 
-            $sql = "INSERT INTO time (id_pokemon, id_treinador)
-                    VALUES (:pokemon, :treinador)";
+            $sql = "INSERT INTO time (id_pokemon, id_treinador, posicao)
+                    VALUES (:pokemon, :treinador, :posicao)";
 
             $result = self::getPDO()->prepare($sql);
 
             $result->bindParam(":pokemon", $this->pokemon);
             $result->bindParam(":treinador", $this->treinador);
+            $result->bindParam(":posicao", $this->posicao);
 
             $result->execute();
 
@@ -90,13 +92,15 @@ class Time implements JsonSerializable
 
             $sql = "UPDATE time
                     SET id_pokemon = :pokemon,
-                        id_treinador = :treinador
+                        id_treinador = :treinador,
+                        posicao = :posicao
                     WHERE id = :id";
 
             $result = self::getPDO()->prepare($sql);
 
             $result->bindParam(":pokemon", $this->pokemon);
             $result->bindParam(":treinador", $this->treinador);
+            $result->bindParam(":posicao", $this->posicao);
             $result->bindParam(":id", $this->id);
 
             $result->execute();
@@ -107,6 +111,7 @@ class Time implements JsonSerializable
     {
         return [
             "id" => $this->id,
+            "posicao" => $this->posicao,
             "pokemon" => $this->pokemon,
             "treinador" => $this->treinador
         ];
