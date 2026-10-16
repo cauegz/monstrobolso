@@ -34,6 +34,10 @@ class ControladorAuth extends ControladorGeral {
             $this->responseError($e->getMessage(), 500);
         }
 
+        session_regenerate_id(true);
+        $_SESSION['usuario_id']   = $usuario->id;
+        $_SESSION['usuario_nome'] = $usuario->nome;
+
         $this->responseJSON([
             'ok'    => true,
             'id'    => $usuario->id,
