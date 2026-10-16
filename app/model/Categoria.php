@@ -96,8 +96,7 @@ class Categoria implements \JsonSerializable
 
             $result = self::getPDO()->prepare($sql);
             $result->bindParam(":tipo", $this->tipo);
-            $result->bindParam(":id", $this->id); // CORRIGIDO: Vinculação do ID que faltava
-            
+            $result->bindParam(":id", $this->id); 
             $result->execute();
         }
     }
