@@ -7,18 +7,20 @@
 </head>
 <body>
     <h1>Monstrobolso</h1>
-    <p id="msg">Verificando sessão...</p>
-    <button id="sair" hidden>Sair</button>
+    <h id="titulo"></h2>
+    <p id="msg">logado</p>
+    <button id="sair">Sair</button>
 
     <a href="game.html">jogar</a>
 
     <script type="module">
-        import verificarSessao from "./verificarSessao.js";
-        verificarSessao();
+        let usuario;
+        import verificarSessao from "../js/verificarSessao.js";
+        usuario = await verificarSessao();
 
-        const msg = document.getElementById('msg');
+        document.getElementById("titulo").innerHTML = "Olá " + usuario.nome;
+
         const btnSair = document.getElementById('sair');
-
         btnSair.addEventListener('click', async () => {
             await fetch('http://localhost:8080/api/logout', { method: 'POST', credentials: 'include' });
             window.location.href = 'login.html';
