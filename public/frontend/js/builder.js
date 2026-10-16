@@ -1,3 +1,6 @@
+import verificarSessao from "./verificarSessao.js";
+verificarSessao();
+
 //PopUp
 const btnSelecionarPoke = document.querySelectorAll('.btn-selecionar-poke');
 const selecionarPoke = document.getElementById("selecionar-poke");
