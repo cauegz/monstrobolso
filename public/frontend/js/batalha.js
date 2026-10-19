@@ -3,7 +3,6 @@ let usuario = await verificarSessao();
 
 async function carregaTime(){
     try{
-     
         const promiseTime = await fetch(`http://localhost:8080/api/treinador/time`);
         const time = await promiseTime.json();
 
