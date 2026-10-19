@@ -92,7 +92,8 @@ class Time extends ModelGeral implements JsonSerializable, ModelInterface
                     id_pokemon AS pokemon, posicao
                 FROM time
                 WHERE id_treinador = :treinador
-                AND posicao = :posicao";
+                AND posicao = :posicao
+                ORDER BY posicao ASC";
 
         $stmt = self::getPDO()->prepare($sql);
         $stmt->bindParam(":treinador", $treinador);

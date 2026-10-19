@@ -5,9 +5,9 @@
  */
 abstract class ModelGeral
 {
-    private static PDO $pdo;
+    protected static $pdo = null;
 
-    private ?int $id = null;
+    protected ?int $id = null;
 
     protected static function getPDO()
     {

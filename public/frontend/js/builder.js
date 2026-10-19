@@ -1,12 +1,13 @@
+//verifica se o usuário está logado
 import verificarSessao from "./verificarSessao.js";
-verificarSessao();
+await verificarSessao();
 
 //PopUp
 const btnSelecionarPoke = document.querySelectorAll('.btn-selecionar-poke');
 const selecionarPoke = document.getElementById("selecionar-poke");
 const fechaModal = document.getElementById("fecha-modal");
 
- time = new Array(6);
+const time = new Array(6);
 let pokemonEquipe;
 
 const esperarSegundos = seg => new Promise(resolve => setTimeout(resolve, seg*1000));
@@ -14,6 +15,7 @@ const esperarSegundos = seg => new Promise(resolve => setTimeout(resolve, seg*10
 btnSelecionarPoke.forEach(botao =>{
     botao.addEventListener("click", ()=>{
         selecionarPoke.showModal();
+        carregaPokemons();
         pokemonEquipe = botao.dataset.poke;
     })
 })
@@ -56,7 +58,7 @@ async function carregaPokemons() {
         await esperarSegundos(1);
         pokemons.innerHTML = "";
 
-        html = "";
+        let html = "";
         //para melhorar o desempenho da página, primeiro montamos a string do html e só depois damos o innerHTML
         especies.forEach(especie => {
             //pega todos os números da url e tira o primeiro  (que é o 2 da v2)
@@ -77,30 +79,30 @@ async function carregaPokemons() {
     }
 }
 
-carregaPokemons();
-
 async function enviar() {
     try{
-        payload = {
+        const payload = {
             "pokemon": time
         }
-       const jsonData = JSON.stringify(payload);
-       console.log(payload);
-       console.log(jsonData);
+        const jsonData = JSON.stringify(payload);
+        console.log(payload);
+        console.log(jsonData);
 
-       const response = await fetch("http://localhost:8080/api/builder", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: 'include',
-        body: jsonData
-       });
-       const result = await response.json();
-       console.log(result);
-       console.log("deu tudo certo /:D");
+        const response = await fetch("http://localhost:8080/api/builder", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: 'include',
+            body: jsonData
+        });
+
+        const result = await response.json();
+        console.log(result);
+
+        // window.location.href = "/frontend/pages/index.html";
     }catch(error){
         console.log("erro ao enviar para a api: " + error);
     }
-    
 }
+document.getElementById("enviar").addEventListener("click", enviar);

@@ -21,6 +21,14 @@ class ControladorTime extends ControladorGeral{
         
         $indice = 0;
         foreach ($ids as $id) {
+            $posicao = $indice + 1;
+            if($id == null || !$id){
+                $time = Time::findByTreinadorAndPosicao($idUsuario, $posicao);
+                if($time)
+                    Time::delete($time->id);
+                $indice++;
+                continue;
+            }
             $pokemonExistente = Pokemon::findByPokeApiAndTreinador($id, $idUsuario);
             if($pokemonExistente){
                 $pokemon = $pokemonExistente;
@@ -62,8 +70,8 @@ class ControladorTime extends ControladorGeral{
                             $pokemon->velocidade = $stat->base_stat;
                             break;
                     }
-                    $pokemon->save();
                 }
+                $pokemon->save();
             }
 
             $time = Time::findByTreinadorAndPosicao($pokemon->treinador, $indice+1);
