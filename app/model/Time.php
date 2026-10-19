@@ -84,7 +84,6 @@ class Time extends ModelGeral implements JsonSerializable, ModelInterface
             $result->execute();
         }
     }
-
    
     public static function findByTreinadorAndPosicao($treinador, $posicao)
     {

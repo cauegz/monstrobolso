@@ -90,6 +90,22 @@ class ControladorTime extends ControladorGeral{
             $indice++;
         }
 
+        //ver oq retornar aqui depois, ta vulneravel a sql injection
         $this->responseJSON(Time::all("id_treinador = $idUsuario"));
+    }
+
+    /**
+     * retorna o time atual do treinador logado
+     */
+    public function time(){
+        session_start();
+        $idUsuario = $_SESSION['usuario_id'];
+        $posicao = 1;
+        $time = [];
+        while($posicao <= 6){
+            $time[] = Time::findByTreinadorAndPosicao($idUsuario, $posicao);
+            $posicao++;
+        }
+        $this->responseJSON($time);
     }
 }

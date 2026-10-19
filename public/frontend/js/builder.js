@@ -1,6 +1,6 @@
 //verifica se o usuário está logado
 import verificarSessao from "./verificarSessao.js";
-await verificarSessao();
+let usuario = await verificarSessao();
 
 //PopUp
 const btnSelecionarPoke = document.querySelectorAll('.btn-selecionar-poke');
@@ -11,6 +11,39 @@ const time = new Array(6);
 let pokemonEquipe;
 
 const esperarSegundos = seg => new Promise(resolve => setTimeout(resolve, seg*1000));
+
+async function carregaTime() {
+    const promiseBanco = await fetch(`http://localhost:8080/api/treinador/time`);
+    const timeBanco = await promiseBanco.json();
+    var index = 1;
+    timeBanco.forEach(async pokemon => {
+        if(!pokemon){
+            index++;
+            return;
+        }
+        //codigo porco tem um jeito melhor de fazer isso nao sei como
+        console.log(pokemon)
+        const div = document.getElementById(`pokemon-${index}`);
+
+        const idBanco = pokemon.id;
+        const promisePokeBanco = await fetch(`http://localhost:8080/api/pokemon?id=${pokemon.pokemon}`);
+        const pokeBanco = await promisePokeBanco.json();
+        console.log(pokeBanco);
+
+        const promisePoke = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeBanco.pokeApi}`);
+        const pokeSelecionado = await promisePoke.json();
+
+        const imgUrl = pokeSelecionado.sprites.front_default;
+
+        div.innerHTML += `<p>${pokeSelecionado.name.charAt(0).toUpperCase() + pokeSelecionado.name.slice(1)}</p><img src=${imgUrl} />`; 
+        // retorna o nome do pokemon com a primeira letra maiúscula e a imagem do dele
+
+        time[index-1] = pokeSelecionado.id;
+        index++;
+    });
+}
+
+await carregaTime();
 
 btnSelecionarPoke.forEach(botao =>{
     botao.addEventListener("click", ()=>{
