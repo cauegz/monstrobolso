@@ -1,32 +1,10 @@
 <?php
 
-class Time implements JsonSerializable
+class Time extends ModelGeral implements JsonSerializable, ModelInterface
 {
-    private static $pdo;
-
-    private ?int $id = null;
-    private int $treinador;
-    private int $posicao = 1;
-    private int $pokemon;
-
-    private static function getPDO()
-    {
-        if (self::$pdo === null) {
-            self::$pdo = Conexao::getPDO();
-        }
-
-        return self::$pdo;
-    }
-
-    public function __get(string $nome)
-    {
-        return $this->$nome;
-    }
-
-    public function __set(string $nome, $valor)
-    {
-        $this->$nome = $valor;
-    }
+    protected int $treinador;
+    protected int $posicao = 1;
+    protected int $pokemon;
 
     public static function find($id)
     {
@@ -59,7 +37,7 @@ class Time implements JsonSerializable
         return $result->fetchAll(PDO::FETCH_CLASS, self::class);
     }
 
-    public static function delete(int $id)
+    public static function delete($id)
     {
         $sql = "DELETE FROM time
                 WHERE id = :id";
@@ -106,6 +84,25 @@ class Time implements JsonSerializable
             $result->execute();
         }
     }
+
+   
+    public static function findByTreinadorAndPosicao($treinador, $posicao)
+    {
+        $sql = "SELECT id, id_treinador AS treinador,
+                    id_pokemon AS pokemon, posicao
+                FROM time
+                WHERE id_treinador = :treinador
+                AND posicao = :posicao
+                ORDER BY posicao ASC";
+
+        $stmt = self::getPDO()->prepare($sql);
+        $stmt->bindParam(":treinador", $treinador);
+        $stmt->bindParam(":posicao", $posicao);
+        $stmt->execute();
+
+        return $stmt->fetchObject(self::class);
+    }
+
 
     public function jsonSerialize(): mixed
     {

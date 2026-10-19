@@ -1,42 +1,20 @@
 <?php
 
-class Pokemon implements JsonSerializable
+class Pokemon extends ModelGeral implements JsonSerializable 
 {
-    private static $pdo;
-
-    private ?int $id = null;
-    private int $pokeApi;
+    protected int $pokeApi;
 
     //status
-    private int $hp = 0;
-    private int $ataque = 0;
-    private int $ataqueEspecial = 0;
-    private int $defesa = 0;
-    private int $defesaEspecial = 0;
-    private int $velocidade = 0;
+    protected int $hp = 0;
+    protected int $ataque = 0;
+    protected int $ataqueEspecial = 0;
+    protected int $defesa = 0;
+    protected int $defesaEspecial = 0;
+    protected int $velocidade = 0;
 
     //chaves estrangeiras
-    private ?int $efeito = null;
-    private int $treinador;
-
-    private static function getPDO()
-    {
-        if (self::$pdo === null) {
-            self::$pdo = Conexao::getPDO();
-        }
-
-        return self::$pdo;
-    }
-
-    public function __get(string $nome)
-    {
-        return $this->$nome;
-    }
-
-    public function __set(string $nome, $valor)
-    {
-        $this->$nome = $valor;
-    }
+    protected ?int $efeito = null;
+    protected int $treinador;
 
     public static function find($id)
     {
@@ -153,6 +131,27 @@ class Pokemon implements JsonSerializable
 
             $result->execute();
         }
+    }
+
+    public static function findByPokeApiAndTreinador($pokeApi, $treinador){
+        $sql = 'SELECT id, hp, ataque, defesa, velocidade, 
+                    id_pokeapi as "pokeApi", 
+                    id_efeito as "efeito",
+                    id_treinador as "treinador",
+                    ataque_especial as "ataqueEspecial",
+                    defesa_especial as "defesaEspecial" 
+                FROM 
+                    pokemon 
+                WHERE 
+                    id_pokeapi = :pokeApi AND 
+                    id_treinador = :treinador';
+
+        $stmt = self::getPDO()->prepare($sql);
+        $stmt->bindParam(":pokeApi", $pokeApi);
+        $stmt->bindParam(":treinador", $treinador);
+        $stmt->execute();
+
+        return $stmt->fetchObject(self::class);
     }
 
     public function jsonSerialize(): mixed
