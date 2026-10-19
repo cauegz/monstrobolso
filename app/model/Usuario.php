@@ -1,39 +1,9 @@
 <?php
-class Usuario implements JsonSerializable{
-    private static $pdo;
-    private ?int $id = null;
-    private string $login;
-    private string $senha;
-    private string $nome;
-
-    private static function getPDO()
-    {
-        if (self::$pdo === null) {
-            self::$pdo = Conexao::getPDO();
-        }
-
-        return self::$pdo;
-    }
-
-    public function __get(string $nome)
-    {
-        return $this->$nome;
-    }
-
-    public function __set(string $nome, $valor)
-    {
-        if(!trim($valor) || strlen($valor) < 2){
-            throw new InvalidArgumentException('Credenciais inválidas');
-        }
-        //antes de executar o set padrão verifica se tem algum explícito na classe
-        $metodo = 'set' . ucfirst($nome);
-
-        if (method_exists($this, $metodo)) {
-            $this->$metodo($valor);
-            return;
-        }
-        $this->$nome = $valor;
-    }
+class Usuario extends ModelGeral implements JsonSerializable, ModelInterface
+{
+    protected string $login;
+    protected string $senha;
+    protected string $nome;
 
     public static function find($id)
     {
@@ -66,7 +36,7 @@ class Usuario implements JsonSerializable{
         return $result->fetchAll(PDO::FETCH_CLASS, self::class);
     }
 
-    public static function delete(int $id)
+    public static function delete($id)
     {
         $sql = "DELETE FROM usuario
                 WHERE id = :id";
@@ -101,7 +71,7 @@ class Usuario implements JsonSerializable{
             } 
 
             $this->id = self::getPDO()->lastInsertId();
-            LogUsuario::salvar($this->id, "O usuario {$this->login} se cadastrou no sistema");
+            LogUsuario::save($this->id, "O usuario {$this->login} se cadastrou no sistema");
         } else {
 
             $sql = "UPDATE usuario
@@ -140,6 +110,20 @@ class Usuario implements JsonSerializable{
             throw new InvalidArgumentException('A senha precisa ter no minímo 8 caracteres, com letra maiúscula e minúscula.');
         }
         $this->senha = password_hash($senha, PASSWORD_DEFAULT);
+    }
+
+    public function setLogin(string $login){
+        if(!trim($login) || strlen($login) < 2){
+            throw new InvalidArgumentException('login inválido');
+        }
+        $this->login = $login;
+    }
+
+    public function setNome(string $nome){
+        if(!trim($nome) || strlen($nome) < 2){
+            throw new InvalidArgumentException('nome inválido');
+        }
+        $this->nome = $nome;
     }
 
     // jsonSerialize sem a senha
