@@ -1,32 +1,10 @@
 <?php
 
-class Time implements JsonSerializable
+class Time extends ModelGeral implements JsonSerializable, ModelInterface
 {
-    private static $pdo;
-
-    private ?int $id = null;
-    private int $treinador;
-    private int $posicao = 1;
-    private int $pokemon;
-
-    private static function getPDO()
-    {
-        if (self::$pdo === null) {
-            self::$pdo = Conexao::getPDO();
-        }
-
-        return self::$pdo;
-    }
-
-    public function __get(string $nome)
-    {
-        return $this->$nome;
-    }
-
-    public function __set(string $nome, $valor)
-    {
-        $this->$nome = $valor;
-    }
+    protected int $treinador;
+    protected int $posicao = 1;
+    protected int $pokemon;
 
     public static function find($id)
     {
@@ -59,7 +37,7 @@ class Time implements JsonSerializable
         return $result->fetchAll(PDO::FETCH_CLASS, self::class);
     }
 
-    public static function delete(int $id)
+    public static function delete($id)
     {
         $sql = "DELETE FROM time
                 WHERE id = :id";
