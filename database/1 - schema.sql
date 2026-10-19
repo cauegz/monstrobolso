@@ -62,11 +62,16 @@ CREATE TABLE IF NOT EXISTS npc
 
 CREATE TABLE IF NOT EXISTS pokemon
 (
-  id           INT NOT NULL GENERATED ALWAYS AS IDENTITY,
-  id_pokeapi   INT NOT NULL,
-  hp           INT NOT NULL,
-  id_efeito    INT NOT NULL,
-  id_treinador INT NOT NULL,
+  id              INT NOT NULL GENERATED ALWAYS AS IDENTITY,
+  id_pokeapi      INT NOT NULL,
+  hp              INT NOT NULL,
+  ataque          INT NOT NULL DEFAULT 0,
+  defesa          INT NOT NULL DEFAULT 0,
+  ataque_especial INT NOT NULL DEFAULT 0,
+  defesa_especial INT NOT NULL DEFAULT 0,
+  velocidade      INT NOT NULL DEFAULT 0,
+  id_efeito       INT,
+  id_treinador    INT NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -84,6 +89,7 @@ CREATE TABLE IF NOT EXISTS produto
 CREATE TABLE IF NOT EXISTS time
 (
   id           INT NOT NULL GENERATED ALWAYS AS IDENTITY,
+  posicao      INT NOT NULL,
   id_treinador INT NOT NULL,
   id_pokemon   INT NOT NULL,
   PRIMARY KEY (id)
