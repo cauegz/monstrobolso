@@ -1,4 +1,5 @@
 //verifica se o usuário está logado
+import Time from "./Time.js";
 import verificarSessao from "./verificarSessao.js";
 let usuario = await verificarSessao();
 
@@ -7,6 +8,8 @@ const btnSelecionarPoke = document.querySelectorAll('.btn-selecionar-poke');
 const selecionarPoke = document.getElementById("selecionar-poke");
 const fechaModal = document.getElementById("fecha-modal");
 
+let objTime;
+objTime = new Time();
 const time = new Array(6);
 let pokemonEquipe;
 
@@ -35,9 +38,11 @@ async function carregaTime() {
         div.innerHTML += `<p>${pokeSelecionado.name.charAt(0).toUpperCase() + pokeSelecionado.name.slice(1)}</p><img src=${imgUrl} />`; 
         // retorna o nome do pokemon com a primeira letra maiúscula e a imagem do dele
 
-        time[index-1] = pokeSelecionado.id;
+        // time[index-1] = pokeSelecionado.id;
+        objTime.adicionarPokemon(index, pokeSelecionado.id);
         index++;
     }
+    console.log(objTime)
 }
 
 await carregaTime();

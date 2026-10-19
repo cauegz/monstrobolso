@@ -94,7 +94,6 @@ class ControladorTime extends ControladorGeral{
             $this->responseError($e->getMessage(), 500);
         }
 
-        //ver oq retornar aqui depois, ta vulneravel a sql injection
         $this->responseJSON(["ok" => true]);
     }
 
