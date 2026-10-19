@@ -1,0 +1,28 @@
+info:
+  name: time
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8080/api/builder
+  body:
+    type: json
+    data: |-
+      {
+        "pokemon": [
+          9,
+          1,
+          10,
+          3,
+          32,
+          121
+        ]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

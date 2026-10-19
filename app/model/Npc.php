@@ -1,31 +1,10 @@
 <?php
 
-class Npc implements JsonSerializable
+class Npc extends ModelGeral implements JsonSerializable, ModelInterface
 {
-    private static $pdo;
-
-    private ?int $id = null;
-    private string $nome;
-    private int $tipoNpc;
-
-    private static function getPDO()
-    {
-        if (self::$pdo === null) {
-            self::$pdo = Conexao::getPDO();
-        }
-
-        return self::$pdo;
-    }
-
-    public function __get(string $nome)
-    {
-        return $this->$nome;
-    }
-
-    public function __set(string $nome, $valor)
-    {
-        $this->$nome = $valor;
-    }
+    protected ?int $id = null;
+    protected string $nome;
+    protected int $tipoNpc;
 
     public static function find($id)
     {
@@ -58,7 +37,7 @@ class Npc implements JsonSerializable
         return $result->fetchAll(PDO::FETCH_CLASS, self::class);
     }
 
-    public static function delete(int $id)
+    public static function delete($id)
     {
         $sql = "DELETE FROM npc
                 WHERE id = :id";
