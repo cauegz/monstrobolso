@@ -16,19 +16,16 @@ async function carregaTime() {
     const promiseBanco = await fetch(`http://localhost:8080/api/treinador/time`);
     const timeBanco = await promiseBanco.json();
     var index = 1;
-    timeBanco.forEach(async pokemon => {
+    for(const pokemon of timeBanco){
         if(!pokemon){
             index++;
-            return;
+            continue;
         }
         //codigo porco tem um jeito melhor de fazer isso nao sei como
-        console.log(pokemon)
         const div = document.getElementById(`pokemon-${index}`);
 
-        const idBanco = pokemon.id;
         const promisePokeBanco = await fetch(`http://localhost:8080/api/pokemon?id=${pokemon.pokemon}`);
         const pokeBanco = await promisePokeBanco.json();
-        console.log(pokeBanco);
 
         const promisePoke = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeBanco.pokeApi}`);
         const pokeSelecionado = await promisePoke.json();
@@ -40,7 +37,7 @@ async function carregaTime() {
 
         time[index-1] = pokeSelecionado.id;
         index++;
-    });
+    }
 }
 
 await carregaTime();
@@ -118,8 +115,6 @@ async function enviar() {
             "pokemon": time
         }
         const jsonData = JSON.stringify(payload);
-        console.log(payload);
-        console.log(jsonData);
 
         const response = await fetch("http://localhost:8080/api/builder", {
             method: "POST",
@@ -131,7 +126,6 @@ async function enviar() {
         });
 
         const result = await response.json();
-        console.log(result);
 
         // window.location.href = "/frontend/pages/index.html";
     }catch(error){
