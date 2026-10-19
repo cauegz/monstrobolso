@@ -45,6 +45,8 @@ class ControladorAuth extends ControladorGeral {
             'nome'  => $usuario->nome,
             'login' => $usuario->login,
         ]);
+
+        LogUsuario::save($usuario->id, "CADASTRO", "O usuario {$usuario->login} se cadastrou no sistema");
     }
 
     // api/login
@@ -65,6 +67,7 @@ class ControladorAuth extends ControladorGeral {
         $_SESSION['usuario_nome'] = $user->nome;
 
         $this->responseJSON(['ok' => true, 'nome' => $user->nome, 'login' => $user->login]);
+        LogUsuario::save($user->id, "LOGIN", "O usuario {$user->login} se logou no sistema");
     }
 
     // api/me
@@ -84,6 +87,7 @@ class ControladorAuth extends ControladorGeral {
 
     // api/logout
     public function logout() {
+        LogUsuario::save($_SESSION['usuario_id'] ?? null, "LOGOUT", "O usuario {$_SESSION['usuario_nome']} se deslogou do sistema");
         $_SESSION = [];
         session_destroy();
         $this->responseJSON(['ok' => true]);
