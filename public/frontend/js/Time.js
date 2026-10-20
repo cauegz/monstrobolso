@@ -5,6 +5,10 @@ class Time {
         this.#pokemon = new Array(6).fill(null);
     }
 
+    get pokemon() {
+        return this.#pokemon;
+    }
+
     adicionarPokemon(posicao, idPokemon) {
         this.#pokemon[posicao - 1] = idPokemon;
     }
@@ -46,6 +50,7 @@ class Time {
             index++;
         }
         console.log(objTime)
+        return objTime;
     }
 }
 

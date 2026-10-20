@@ -10,7 +10,6 @@ const fechaModal = document.getElementById("fecha-modal");
 
 let objTime;
 objTime = new Time();
-const time = new Array(6);
 let pokemonEquipe;
 
 const esperarSegundos = seg => new Promise(resolve => setTimeout(resolve, seg*1000));
@@ -38,11 +37,9 @@ async function carregaTime() {
         div.innerHTML += `<p>${pokeSelecionado.name.charAt(0).toUpperCase() + pokeSelecionado.name.slice(1)}</p><img src=${imgUrl} />`; 
         // retorna o nome do pokemon com a primeira letra maiúscula e a imagem do dele
 
-        // time[index-1] = pokeSelecionado.id;
         objTime.adicionarPokemon(index, pokeSelecionado.id);
         index++;
     }
-    console.log(objTime)
 }
 
 await carregaTime();
@@ -69,10 +66,10 @@ selecionarPoke.addEventListener("click", async (event)=>{
 
         const imgUrl = pokeSelecionado.sprites.front_default;
 
-        div.innerHTML += `<p>${pokeSelecionado.name.charAt(0).toUpperCase() + pokeSelecionado.name.slice(1)}</p><img src=${imgUrl} />`; 
+        div.innerHTML = `<p>${pokeSelecionado.name.charAt(0).toUpperCase() + pokeSelecionado.name.slice(1)}</p><img src=${imgUrl} />`; 
         // retorna o nome do pokemon com a primeira letra maiúscula e a imagem do dele
 
-        time[pokemonEquipe-1] = pokeSelecionado.id;
+        objTime.adicionarPokemon(pokemonEquipe, pokeSelecionado.id);
         //-1 porque o array começa do 0 e a posição do pokemon na equipe começa do 1
 
         selecionarPoke.close();
@@ -117,7 +114,7 @@ async function carregaPokemons() {
 async function enviar() {
     try{
         const payload = {
-            "pokemon": time
+            "pokemon": objTime.pokemon
         }
         const jsonData = JSON.stringify(payload);
 
