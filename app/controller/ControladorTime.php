@@ -98,7 +98,7 @@ class ControladorTime extends ControladorGeral{
      */
     public function time(){
         session_start();
-        $idUsuario = $_SESSION['usuario_id'];
+        $idUsuario = $_SESSION['treinador'];
         $posicao = 1;
         $time = [];
         while($posicao <= 6){
