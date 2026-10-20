@@ -19,12 +19,19 @@ class ControladorAuth extends ControladorGeral {
         $senha = $d['senha'] ?? '';
         
         $usuario = new Usuario();
+        $treinador = new Treinador();
 
         try {
             $usuario->nome  = $nome;
             $usuario->login = $login;
             $usuario->senha = $senha; // o model valida e faz o hash
+            if($usuario->findByLogin($usuario->login)){
+                throw new InvalidArgumentException("Login está em uso");
+            }
             $usuario->save();
+
+            $treinador->usuario = $usuario->id;
+            $treinador->save();
         } catch (InvalidArgumentException $e) {
             error_log($e->getMessage());
             $this->responseError($e->getMessage(), 400); // senha fraca ou login inválido
@@ -37,6 +44,7 @@ class ControladorAuth extends ControladorGeral {
         $this->responseJSON([
             'ok'    => true,
             'id'    => $usuario->id,
+            'treinador' => $treinador->id,
             'nome'  => $usuario->nome,
             'login' => $usuario->login,
         ]);
