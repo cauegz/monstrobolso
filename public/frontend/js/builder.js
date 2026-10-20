@@ -4,17 +4,19 @@ import Time from "./Time.js";
 //verifica se o usuário está logado
 let usuario = await verificarSessao();
 
-//PopUp
-const btnSelecionarPoke = document.querySelectorAll('.btn-selecionar-poke');
-const selecionarPoke = document.getElementById("selecionar-poke");
-const fechaModal = document.getElementById("fecha-modal");
-
 let objTime = await Time.carregarTime(usuario.treinador);
 
 let pokemonEquipe;
 
 const esperarSegundos = seg => new Promise(resolve => setTimeout(resolve, seg*1000));
 
+
+//classe de interface
+
+//PopUp
+const btnSelecionarPoke = document.querySelectorAll('.btn-selecionar-poke');
+const selecionarPoke = document.getElementById("selecionar-poke");
+const fechaModal = document.getElementById("fecha-modal");
 
 btnSelecionarPoke.forEach(botao =>{
     botao.addEventListener("click", ()=>{
@@ -59,6 +61,7 @@ async function carregaPokemons() {
 
         let especies = [...pokeApiObjGen1.pokemon_species, ...pokeApiObjGen3.pokemon_species];
 
+        //só espera aqui pra mostrar o simbolo de carregando
         await esperarSegundos(1);
         pokemons.innerHTML = "";
 
@@ -83,6 +86,7 @@ async function carregaPokemons() {
     }
 }
 
+//classe de api
 async function enviar() {
     try{
         const payload = {
