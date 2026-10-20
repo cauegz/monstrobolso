@@ -1,46 +1,22 @@
-//verifica se o usuário está logado
 import verificarSessao from "./verificarSessao.js";
+import Time from "./Time.js";
+
+//verifica se o usuário está logado
 let usuario = await verificarSessao();
+
+let objTime = await Time.carregarTime(usuario.treinador);
+
+let pokemonEquipe;
+
+const esperarSegundos = seg => new Promise(resolve => setTimeout(resolve, seg*1000));
+
+
+//classe de interface
 
 //PopUp
 const btnSelecionarPoke = document.querySelectorAll('.btn-selecionar-poke');
 const selecionarPoke = document.getElementById("selecionar-poke");
 const fechaModal = document.getElementById("fecha-modal");
-
-const time = new Array(6);
-let pokemonEquipe;
-
-const esperarSegundos = seg => new Promise(resolve => setTimeout(resolve, seg*1000));
-
-async function carregaTime() {
-    const promiseBanco = await fetch(`http://localhost:8080/api/treinador/time`);
-    const timeBanco = await promiseBanco.json();
-    var index = 1;
-    for(const pokemon of timeBanco){
-        if(!pokemon){
-            index++;
-            continue;
-        }
-        //codigo porco tem um jeito melhor de fazer isso nao sei como
-        const div = document.getElementById(`pokemon-${index}`);
-
-        const promisePokeBanco = await fetch(`http://localhost:8080/api/pokemon?id=${pokemon.pokemon}`);
-        const pokeBanco = await promisePokeBanco.json();
-
-        const promisePoke = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeBanco.pokeApi}`);
-        const pokeSelecionado = await promisePoke.json();
-
-        const imgUrl = pokeSelecionado.sprites.front_default;
-
-        div.innerHTML += `<p>${pokeSelecionado.name.charAt(0).toUpperCase() + pokeSelecionado.name.slice(1)}</p><img src=${imgUrl} />`; 
-        // retorna o nome do pokemon com a primeira letra maiúscula e a imagem do dele
-
-        time[index-1] = pokeSelecionado.id;
-        index++;
-    }
-}
-
-await carregaTime();
 
 btnSelecionarPoke.forEach(botao =>{
     botao.addEventListener("click", ()=>{
@@ -64,10 +40,10 @@ selecionarPoke.addEventListener("click", async (event)=>{
 
         const imgUrl = pokeSelecionado.sprites.front_default;
 
-        div.innerHTML += `<p>${pokeSelecionado.name.charAt(0).toUpperCase() + pokeSelecionado.name.slice(1)}</p><img src=${imgUrl} />`; 
+        div.innerHTML = `<p>${pokeSelecionado.name.charAt(0).toUpperCase() + pokeSelecionado.name.slice(1)}</p><img src=${imgUrl} />`; 
         // retorna o nome do pokemon com a primeira letra maiúscula e a imagem do dele
 
-        time[pokemonEquipe-1] = pokeSelecionado.id;
+        objTime.adicionarPokemon(pokemonEquipe, pokeSelecionado.id);
         //-1 porque o array começa do 0 e a posição do pokemon na equipe começa do 1
 
         selecionarPoke.close();
@@ -85,6 +61,7 @@ async function carregaPokemons() {
 
         let especies = [...pokeApiObjGen1.pokemon_species, ...pokeApiObjGen3.pokemon_species];
 
+        //só espera aqui pra mostrar o simbolo de carregando
         await esperarSegundos(1);
         pokemons.innerHTML = "";
 
@@ -109,10 +86,11 @@ async function carregaPokemons() {
     }
 }
 
+//classe de api
 async function enviar() {
     try{
         const payload = {
-            "pokemon": time
+            "pokemon": objTime.pokemon
         }
         const jsonData = JSON.stringify(payload);
 

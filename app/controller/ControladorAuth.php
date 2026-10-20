@@ -19,12 +19,19 @@ class ControladorAuth extends ControladorGeral {
         $senha = $d['senha'] ?? '';
         
         $usuario = new Usuario();
+        $treinador = new Treinador();
 
         try {
             $usuario->nome  = $nome;
             $usuario->login = $login;
             $usuario->senha = $senha; // o model valida e faz o hash
+            if($usuario->findByLogin($usuario->login)){
+                throw new InvalidArgumentException("Login está em uso");
+            }
             $usuario->save();
+
+            $treinador->usuario = $usuario->id;
+            $treinador->save();
         } catch (InvalidArgumentException $e) {
             error_log($e->getMessage());
             $this->responseError($e->getMessage(), 400); // senha fraca ou login inválido
@@ -37,6 +44,7 @@ class ControladorAuth extends ControladorGeral {
         $this->responseJSON([
             'ok'    => true,
             'id'    => $usuario->id,
+            'treinador' => $treinador->id,
             'nome'  => $usuario->nome,
             'login' => $usuario->login,
         ]);
@@ -54,9 +62,11 @@ class ControladorAuth extends ControladorGeral {
             return;
         }
 
+        $treinador = Treinador::findByUsuario($user->id);
         session_regenerate_id(true);
         $_SESSION['usuario_id']   = $user->id;
         $_SESSION['usuario_nome'] = $user->nome;
+        $_SESSION['treinador'] = $treinador->id;
 
         $this->responseJSON(['ok' => true, 'nome' => $user->nome, 'login' => $user->login]);
     }
@@ -68,9 +78,11 @@ class ControladorAuth extends ControladorGeral {
         }
         $id = $_SESSION['usuario_id'];
         $usuario = Usuario::find($id);
+        $treinador = Treinador::findByUsuario($usuario->id);
         $this->responseJSON([
             'ok' => true, 
             'nome' => $usuario->nome,
+            'treinador' => $treinador->id,
             'login' => $usuario->login 
         ]);
     }
