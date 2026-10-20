@@ -22,6 +22,8 @@ class Time {
     }
 
     static async carregarTime(idTreinador) {
+        let objTime = new Time();
+
         //pega o time do usuário logado atualmente
         const promiseBanco = await fetch(`http://localhost:8080/api/treinador/time`);
         const timeBanco = await promiseBanco.json();
@@ -49,7 +51,6 @@ class Time {
             objTime.adicionarPokemon(index, pokeSelecionado.id);
             index++;
         }
-        console.log(objTime)
         return objTime;
     }
 }

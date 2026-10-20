@@ -15,7 +15,7 @@ class ControladorTime extends ControladorGeral{
         if(!isset($_SESSION['usuario_id'])){
             $this->responseError("rota nao encontrada", 404); //certo seria 401, mas para não expor a rota dei 404
         }
-        $idUsuario = $_SESSION['usuario_id'];
+        $idTreinador = $_SESSION['treinador'];
 
         $ids = $this->receiveJSON()['pokemon'];
         
@@ -24,7 +24,7 @@ class ControladorTime extends ControladorGeral{
             foreach ($ids as $id) {
                 $posicao = $indice + 1;
                 if($id == null || !$id){
-                    $time = Time::findByTreinadorAndPosicao($idUsuario, $posicao);
+                    $time = Time::findByTreinadorAndPosicao($idTreinador, $posicao);
                     if($time)
                         Time::delete($time->id);
                     $indice++;
@@ -36,7 +36,7 @@ class ControladorTime extends ControladorGeral{
                 
                 $pokemon = new Pokemon();
 
-                $pokemon->treinador = $idUsuario;
+                $pokemon->treinador = $idTreinador;
                 $pokemon->pokeApi = $id;
 
                 foreach ($pokeApi->stats as $stat) {
@@ -77,7 +77,7 @@ class ControladorTime extends ControladorGeral{
                     $time->pokemon = $pokemon->id;
                 } else {
                     $time = new Time();
-                    $time->treinador = $idUsuario;
+                    $time->treinador = $idTreinador;
                     $time->pokemon = $pokemon->id;
                     $time->posicao = $indice + 1;
                 }
@@ -94,7 +94,7 @@ class ControladorTime extends ControladorGeral{
     }
 
     /**
-     * retorna o time atual do treinador logado
+     * retorna o time atual do usuário logado
      */
     public function time(){
         session_start();

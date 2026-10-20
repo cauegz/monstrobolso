@@ -88,7 +88,11 @@ class Treinador extends ModelGeral implements JsonSerializable, ModelInterface
     public static function findByUsuario($usuario)
     {
         $stmt = self::getPDO()->prepare(
-            "SELECT * FROM treinador WHERE id_usuario = :usuario"
+            'SELECT 
+                id,
+                id_usuario as "usuario",
+                id_npc as "npc"
+            FROM treinador WHERE id_usuario = :usuario'
         );
         $stmt->execute([':usuario' => $usuario]);
         return $stmt->fetchObject(self::class); // false se não existir

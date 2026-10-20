@@ -62,9 +62,11 @@ class ControladorAuth extends ControladorGeral {
             return;
         }
 
+        $treinador = Treinador::findByUsuario($user->id);
         session_regenerate_id(true);
         $_SESSION['usuario_id']   = $user->id;
         $_SESSION['usuario_nome'] = $user->nome;
+        $_SESSION['treinador'] = $treinador->id;
 
         $this->responseJSON(['ok' => true, 'nome' => $user->nome, 'login' => $user->login]);
     }
@@ -76,9 +78,11 @@ class ControladorAuth extends ControladorGeral {
         }
         $id = $_SESSION['usuario_id'];
         $usuario = Usuario::find($id);
+        $treinador = Treinador::findByUsuario($usuario->id);
         $this->responseJSON([
             'ok' => true, 
             'nome' => $usuario->nome,
+            'treinador' => $treinador->id,
             'login' => $usuario->login 
         ]);
     }
