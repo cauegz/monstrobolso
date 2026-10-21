@@ -47,7 +47,7 @@
     font-family: var(--fonte-principal);
     color: #303030;
 
-    z-index: 10;
+    z-index: 999;
 }
 
 #selecionar-poke[open] {

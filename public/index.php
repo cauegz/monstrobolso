@@ -17,4 +17,5 @@ $router->add("/api/builder",    "Time@criarTime");
 $router->add("/api/treinador/time",    "Time@time");
 $router->add("/api/pokemon",    "Pokemon@pokemonById");
 
+
 $router->executar($url);

@@ -1,6 +1,6 @@
 <?php
 
-class Pokemon extends ModelGeral implements JsonSerializable 
+class Pokemon extends ModelGeral implements JsonSerializable, ModelInterface
 {
     protected int $pokeApi;
 
@@ -57,7 +57,7 @@ class Pokemon extends ModelGeral implements JsonSerializable
         return $result->fetchAll(PDO::FETCH_CLASS, self::class);
     }
 
-    public static function delete(int $id)
+    public static function delete($id)
     {
         $sql = "DELETE FROM pokemon
                 WHERE id = :id";
