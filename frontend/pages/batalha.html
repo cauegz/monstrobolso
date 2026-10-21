@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>batalha</title>
+    <link rel="stylesheet" href="../css/batalha.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <div class="pokemon">
+            <span id="pokeInimigo"></span>
+            <div class="pokeInfo" id="pokeInimigoInfo">
+                <span id="pokeNomeInimigo"></span>
+                <span id="hpInimigo"></span>
+            </div>
+        </div>
+   
+
+        <div class="pokemon" id="pokeUser">
+            <span id="pokeSelecionado"></span>
+            <div class="pokeInfo" id="pokeUserInfo">
+                <span id="pokeNome"></span>
+                <span id="hp"></span>
+            </div>
+        </div>
+        
+        <div id="menuBatalha">
+            <p> Em batalha! selecione o que você vai fazer</p>
+            <div id="opcoesBatalha">
+                <button class="btn-opc" id="atacar">Atacar</button>
+                <button class="btn-opc" id="fugir">Fugir</button>
+                <button class="btn-opc" id="trocar">Trocar</button>
+                <button class="btn-opc" id="mochila">Mochila</button>
+            </div>
+        </div>
+    </div>
+   
+    <script src="../js/pages/batalha.js" type="module"></script>
+</body>
+</html>

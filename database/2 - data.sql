@@ -61,27 +61,27 @@ INSERT INTO treinador (id_npc, id_usuario) VALUES
 -- id_pokeapi representa o ID da espécie na PokéAPI.
 -- =========================================
 INSERT INTO pokemon (id_pokeapi, hp, id_efeito, id_treinador) VALUES
-(25, 35, 2, 1),   -- Pikachu, Ana
-(1, 45, 4, 1),    -- Bulbasaur, Ana
-(4, 39, 1, 1),    -- Charmander, Ana
-(7, 44, 5, 2),    -- Squirtle, Bruno
-(10, 45, 3, 2),   -- Caterpie, Bruno
-(133, 55, 4, 3),  -- Eevee, Carla
-(74, 40, 1, 4),   -- Geodude, NPC
-(95, 35, 2, 6);   -- Onix, NPC
+-- (25, 35, 2, 1),   -- Pikachu, Ana
+-- (1, 45, 4, 1),    -- Bulbasaur, Ana
+-- (4, 39, 1, 1),    -- Charmander, Ana
+-- (7, 44, 5, 2),    -- Squirtle, Bruno
+-- (10, 45, 3, 2),   -- Caterpie, Bruno
+-- (133, 55, 4, 3),  -- Eevee, Carla
+-- (74, 40, 1, 4),   -- Geodude, NPC
+-- (95, 35, 2, 6);   -- Onix, NPC
 
 -- =========================================
 -- 8. Times
 -- =========================================
-INSERT INTO time (posicao, id_treinador, id_pokemon) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
-(4, 2, 4),
-(5, 2, 5),
-(6, 3, 6),
-(7, 4, 7),
-(8, 6, 8);
+-- INSERT INTO time (posicao, id_treinador, id_pokemon) VALUES
+-- (1, 1, 1),
+-- (2, 1, 2),
+-- (3, 1, 3),
+-- (4, 2, 4),
+-- (5, 2, 5),
+-- (6, 3, 6),
+-- (2, 4, 7),
+-- (1, 6, 8);
 
 -- =========================================
 -- 9. Produtos da loja

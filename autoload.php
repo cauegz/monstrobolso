@@ -3,7 +3,7 @@
 function carregar($classe)
 {
     $diretorio = new RecursiveDirectoryIterator(
-        __DIR__ . '/app',
+        __DIR__ . '/backend',
         RecursiveDirectoryIterator::SKIP_DOTS
     );
 

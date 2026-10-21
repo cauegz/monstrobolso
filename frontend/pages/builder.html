@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team Builder</title>
+    <link rel="stylesheet" href="../css/builder.css" />
+</head>
+
+<body>
+    <div id="gameContainer">
+        <h1>team builder</h1>
+        <div id="equipe">
+            <div class="acoes-pokemon">
+                <button class="btn-selecionar-poke" data-poke="1">
+                    Selecionar pokemon 1
+                </button>
+                <div id="pokemon-1"></div>
+            </div>
+            <div class="acoes-pokemon">
+                <button class="btn-selecionar-poke" data-poke="2">
+                    Selecionar pokemon 2
+                </button>
+                <div id="pokemon-2"></div>
+            </div>
+            <div class="acoes-pokemon">
+                <button class="btn-selecionar-poke" data-poke="3">
+                    Selecionar pokemon 3
+                </button>
+                <div id="pokemon-3"></div>
+            </div>
+            <div class="acoes-pokemon">
+                <button class="btn-selecionar-poke" data-poke="4">
+                    Selecionar pokemon 4
+                </button>
+                <div id="pokemon-4"></div>
+            </div>
+            <div class="acoes-pokemon">
+                <button class="btn-selecionar-poke" data-poke="5">
+                    Selecionar pokemon 5
+                </button>
+                <div id="pokemon-5"></div>
+            </div>
+            <div class="acoes-pokemon">
+                <button class="btn-selecionar-poke" data-poke="6">
+                    Selecionar pokemon 6
+                </button>
+                <div id="pokemon-6"></div>
+            </div>
+
+            <dialog id="selecionar-poke">
+                <button id="fecha-modal">X</button>
+                <div id="pokemons">Carregando...</div>
+            </dialog>
+        </div>
+        <div id="botoes">
+            <button id="enviar">
+                enviar
+            </button>
+        </div>
+    </div>
+    <script src="../js/pages/builder.js" type="module"></script>
+</body>
+
+</html>
