@@ -156,6 +156,7 @@
         "columnIds": [
           "1-N2ShoQ3N66PXqW4z40-",
           "yxYZIDms3xnhp5Glj2Iu3",
+          "03h2vjdd2xfn3dadp4mh7fwtu",
           "-x_7nFzzwTb8twNRm0e1r",
           "new_criado_em_column"
         ],
@@ -511,6 +512,15 @@
         "name": "mensagem",
         "comment": "",
         "dataType": "VARCHAR(200)",
+        "default": "",
+        "options": 8
+      },
+      "03h2vjdd2xfn3dadp4mh7fwtu": {
+        "id": "03h2vjdd2xfn3dadp4mh7fwtu",
+        "tableId": "SNWq7E71gjDZQgaWrZNs7",
+        "name": "acao",
+        "comment": "",
+        "dataType": "VARCHAR(12)",
         "default": "",
         "options": 8
       },

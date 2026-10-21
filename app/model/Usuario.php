@@ -64,7 +64,7 @@ class Usuario extends ModelGeral implements JsonSerializable, ModelInterface
             $result->execute();
 
             $this->id = self::getPDO()->lastInsertId();
-            LogUsuario::save($this->id, "O usuario {$this->login} se cadastrou no sistema");
+            
         } else {
 
             $sql = "UPDATE usuario
