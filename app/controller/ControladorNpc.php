@@ -1,6 +1,7 @@
 <?php
 
 class ControladorNpc extends ControladorGeral{
+    // api/teste
     public function createNpc(){
         // extract($this->receiveJSON());
 
