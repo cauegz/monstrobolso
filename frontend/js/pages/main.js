@@ -1,6 +1,6 @@
-import { Player } from "./player.js";
-import { InputHandler } from "./input.js";
-import { Background } from "./background.js";
+import { Player } from "../entities/gameManager/Player.js";
+import { InputHandler } from "../entities/gameManager/InputHandler.js";
+import { Background } from "../entities/gameManager/Background.js";
 window.addEventListener('load', function(){
     const canvas = document.getElementById('gameCanvas');
     const context = canvas.getContext('2d');

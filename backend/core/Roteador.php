@@ -52,8 +52,9 @@ class Roteador {
      * para debug quando passar classe ou metodo errado);
      */
     private function erro404($mensagem = "404"){
-        //gambiarra por enquanto para mandar pro front sempre que digitar uma rota errada
-        header('Location: /frontend/pages/index.html');
+        header('Content-Type: application/json; charset=utf-8');
+        http_response_code(404);
+        echo json_encode(["ok" => false, "mensagem" => $mensagem]);
         die();
     }
 }

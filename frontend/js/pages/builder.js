@@ -1,8 +1,8 @@
 
-import verificarSessao from "./verificarSessao.js";
-import Time from "./Time.js";
-import Api from "./Api.js";
-import builderView from "./builderView.js";
+import verificarSessao from "../services/verificarSessao.js";
+import Time from "../entities/Time.js";
+import Api from "../APIs/Api.js";
+import BuilderView from "../entities/view/BuilderView.js";
 
 async function iniciarBuilder() {
     try {
@@ -12,11 +12,12 @@ async function iniciarBuilder() {
 
         // Carrega o time 
         const objTime = await Time.carregarTime(usuario.treinador);
-        new builderView(objTime);
+        new BuilderView(objTime);
 
         document.getElementById("enviar")
             .addEventListener("click", async () => {
                 try {
+                    console.log(objTime)
                     await Api.enviarTime(objTime);
 
                     console.log("time enviado ");

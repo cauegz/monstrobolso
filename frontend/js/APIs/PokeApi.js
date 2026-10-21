@@ -1,4 +1,4 @@
-export default class pokeAPI{
+export default class PokeAPI{
     static URL = "https://pokeapi.co/api/v2";
 
     static async buscarPokemon(id) {

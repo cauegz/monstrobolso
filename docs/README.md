@@ -9,6 +9,11 @@ Trabalho final do terceiro ano do ensino médio integrado ao técnico em desenvo
     - Casas Ribeirinhos
     - Rio Negro
 
+## Portas/localhost
+- o sistema agora está rodando na porta 80 (padrão do http), entao agora para acessar o sistema, depois de dar `docker compose up -d`, se acessa `http://localhost`
+- API - porta 8080
+- frontend - porta 80
+
 ## Comandos:
 - pega os containeirs do docker-compose.yml - roda banco e php: docker compose up -d 
 - desliga: docker compose down

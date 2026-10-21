@@ -36,7 +36,7 @@
             jsonData = JSON.stringify(jsonData);
             
             try {
-                const response = await fetch('http://localhost:8080/api/cadastro', {
+                const response = await fetch('/api/cadastro', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -1,4 +1,4 @@
-import PokeApi from "./pokeApi.js";
+import PokeApi from "../../APIs/PokeApi.js";
 
 export default class BuilderView {
     #time;

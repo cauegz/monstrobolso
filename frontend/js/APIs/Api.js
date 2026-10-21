@@ -1,6 +1,5 @@
-
 export default class Api {
-    static url = "http://localhost:8080/api";
+    static url = "/api";
 
     // Método geral para fazer requisições
     static async requisicao(endpoint, opcoes = {}) {

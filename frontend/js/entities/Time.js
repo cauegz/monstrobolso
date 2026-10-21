@@ -1,5 +1,5 @@
-import Api from "./Api.js";
-import PokeApi from "./pokeApi.js";
+import Api from "../APIs/Api.js";
+import PokeApi from "../APIs/PokeApi.js";
 
 class Time {
     #pokemon;
