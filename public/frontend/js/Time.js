@@ -1,4 +1,5 @@
 import Api from "./Api.js";
+import PokeApi from "./pokeApi.js";
 
 class Time {
     #pokemon;
@@ -40,8 +41,7 @@ class Time {
 
             const pokeBanco = await Api.buscarPokemon(pokemon.pokemon);
 
-            const promisePoke = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeBanco.pokeApi}`);
-            const pokeSelecionado = await promisePoke.json();
+            const pokeSelecionado = await PokeApi.buscarPokemon(pokeBanco.pokeApi);
 
             const imgUrl = pokeSelecionado.sprites.front_default;
 
