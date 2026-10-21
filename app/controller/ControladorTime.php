@@ -94,15 +94,15 @@ class ControladorTime extends ControladorGeral{
     }
 
     /**
-     * retorna o time atual do usuário logado
+     * retorna o time atual do usuário no parametro get id
      */
     public function time(){
         session_start();
-        $idUsuario = $_SESSION['treinador'];
+        $treinador = $_GET['id'];
         $posicao = 1;
         $time = [];
         while($posicao <= 6){
-            $time[] = Time::findByTreinadorAndPosicao($idUsuario, $posicao);
+            $time[] = Time::findByTreinadorAndPosicao($treinador, $posicao);
             $posicao++;
         }
         $this->responseJSON($time);

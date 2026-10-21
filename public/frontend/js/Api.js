@@ -36,8 +36,8 @@ export default class Api {
         return await this.requisicao(`/pokemon?id=${id}`);
     }
 
-    static async buscarTime() {
-        return await this.requisicao("/treinador/time");
+    static async buscarTime(id) {
+        return await this.requisicao(`/treinador/time?id=${id}`);
     }
 }
 
