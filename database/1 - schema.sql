@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS log_usuario
 (
   id         INT          NOT NULL GENERATED ALWAYS AS IDENTITY,
   usuario_id INT          NOT NULL,
+  acao       VARCHAR(12)  NOT NULL,
   mensagem   VARCHAR(200) NOT NULL,
   criado_em  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)

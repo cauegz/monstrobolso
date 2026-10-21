@@ -47,6 +47,7 @@
                 const data = await response.json();
                 if (data.ok) {
                     console.log('Success:', data);
+                    window.location.href = 'index.html';
                 } else {
                     alert(data.mensagem);
                     console.log(data);
