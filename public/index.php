@@ -14,5 +14,5 @@ $router->add("/api/me",       "Auth@me");
 $router->add("/api/logout",   "Auth@logout");
 $router->add("/api/teste",    "Npc@createNpc");
 $router->add("/api/builder",    "Time@criarTime");
-
+$router->add("/api/produto/criar",  "Loja@criarProduto");
 $router->executar($url);
