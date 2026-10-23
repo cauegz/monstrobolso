@@ -13,3 +13,4 @@ Trabalho final do terceiro ano do ensino médio integrado ao técnico em desenvo
 - pega os containeirs do docker-compose.yml - roda banco e php: docker compose up -d 
 - desliga: docker compose down
 - apagar dados banco: docker compose down -v
+- abrir o terminal do postgre: docker exec -it postgres psql -U postgres -d monstrobolso

@@ -33,7 +33,11 @@ class Roteador {
                     $this->erro404("classe não existe");
                 }
                 if(method_exists($obj, $method)){
-                    $obj->$method();
+                    if(isset($_GET['id'])){
+                        $obj->$method($_GET['id']);
+                    } else {
+                        $obj->$method();
+                    }
                 } else {
                     $this->erro404("método não existe");
                 }

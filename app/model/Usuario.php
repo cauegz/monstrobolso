@@ -61,14 +61,7 @@ class Usuario extends ModelGeral implements JsonSerializable, ModelInterface
             $result->bindParam(":senha", $this->senha);
             $result->bindParam(":nome", $this->nome);
 
-            try{
-                $result->execute();
-            } catch (PDOException $e) {
-                if ($e->getCode() === '23505') { // unique_violation
-                    throw new InvalidArgumentException("Login já esta em uso");
-                }
-                throw $e;
-            } 
+            $result->execute();
 
             $this->id = self::getPDO()->lastInsertId();
             
