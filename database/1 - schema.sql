@@ -1,13 +1,4 @@
 
-CREATE TABLE IF NOT EXISTS categoria
-(
-  id   INT     NOT NULL GENERATED ALWAYS AS IDENTITY,
-  tipo CHAR(1) NOT NULL UNIQUE,
-  PRIMARY KEY (id)
-);
-
-COMMENT ON COLUMN categoria.tipo IS 'CHECK (tipo IN (''1'',''2'',''3''))';
-
 CREATE TABLE IF NOT EXISTS efeito
 (
   id   INT          NOT NULL GENERATED ALWAYS AS IDENTITY,
@@ -46,7 +37,6 @@ CREATE TABLE IF NOT EXISTS loja
 (
   id           INT     NOT NULL GENERATED ALWAYS AS IDENTITY,
   nome         CHAR(2) NOT NULL UNIQUE,
-  categoria_id INT     NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -82,7 +72,7 @@ CREATE TABLE IF NOT EXISTS produto
   nome            VARCHAR(100)  NOT NULL,
   preco           DECIMAL(10,2) NOT NULL,
   estoque         INT           NOT NULL,
-  categoria_id    INT           NOT NULL,
+  loja_id    INT           NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -157,17 +147,12 @@ ALTER TABLE inventario
     FOREIGN KEY (id_treinador)
     REFERENCES treinador (id);
 
-ALTER TABLE produto DROP CONSTRAINT IF EXISTS FK_categoria_TO_produto;
+ALTER TABLE produto DROP CONSTRAINT IF EXISTS FK_loja_TO_produto;
 ALTER TABLE produto
-  ADD CONSTRAINT FK_categoria_TO_produto
-    FOREIGN KEY (categoria_id)
-    REFERENCES categoria (id);
+  ADD CONSTRAINT FK_loja_TO_produto
+    FOREIGN KEY (loja_id)
+    REFERENCES loja (id);
 
-ALTER TABLE loja DROP CONSTRAINT IF EXISTS FK_categoria_TO_loja;
-ALTER TABLE loja
-  ADD CONSTRAINT FK_categoria_TO_loja
-    FOREIGN KEY (categoria_id)
-    REFERENCES categoria (id);
 
 ALTER TABLE venda DROP CONSTRAINT IF EXISTS FK_loja_TO_venda;
 ALTER TABLE venda
