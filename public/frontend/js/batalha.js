@@ -1,6 +1,20 @@
 import verificarSessao from "./verificarSessao.js";
-let usuario = await verificarSessao();
+import Time from "./Time.js";
+import batalhaView from "./batalhaView.js"
 
+async function iniciarBatalha(){
+    try{
+        const usuario = await verificarSessao();
+        if(!usuario) return
+        const objTime = await Time.carregarTime(usuario.treinador);
+        new batalhaView(objTime);
+    }catch(error){
+        console.log(error);
+    }
+
+}
+iniciarBatalha();
+/*
 async function carregaTime(){
     try{
         const promiseTime = await fetch(`http://localhost:8080/api/treinador/time`);
@@ -25,3 +39,4 @@ async function carregaTime(){
 }
 
 carregaTime();
+*/

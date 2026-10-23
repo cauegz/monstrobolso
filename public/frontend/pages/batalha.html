@@ -28,10 +28,13 @@
         <div id="menuBatalha">
             <p> Em batalha! selecione o que você vai fazer</p>
             <div id="opcoesBatalha">
-                <button class="btn-opc" id="atacar">Atacar</button>
+                <button class="btn-opc" id="atacar" popovertarget="ataques">Atacar</button>
                 <button class="btn-opc" id="fugir">Fugir</button>
                 <button class="btn-opc" id="trocar">Trocar</button>
                 <button class="btn-opc" id="mochila">Mochila</button>
+            </div>
+            <div popover id="ataques">
+               <span id="opcoesPopUp"></span>
             </div>
         </div>
     </div>
